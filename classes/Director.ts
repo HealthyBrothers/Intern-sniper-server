@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import User from "./User";
 import ApprovalTx from "./ApprovalTx";
 
@@ -11,36 +10,14 @@ class Director extends User {
     userId: String,
     email: String,
     firstname: String,
-    lastname: string,
+    lastname: String,
     transactions: ApprovalTx[] | null,
-    password: string
+    password: String
   ) {
     super(userId, "Director", email, password);
     this.firstname = firstname;
     this.lastname = lastname;
     this.transactions = transactions;
-  }
-
-  public static getSchema() {
-    return new mongoose.Schema({
-      userId: String,
-      role: String,
-      email: String,
-      firstname: String,
-      lastname: String,
-      password: String,
-      transactions: [
-        { type: mongoose.Schema.Types.ObjectId, ref: "ApprovalTx" },
-      ],
-    });
-  }
-
-  public static getModel(): mongoose.Model<any> {
-    if (mongoose.models.Director) {
-      return mongoose.model("Director");
-    } else {
-      return mongoose.model("Director", this.getSchema());
-    }
   }
 }
 

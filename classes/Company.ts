@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Location from "./Location";
 import User from "./User";
 import Program from "./Program";
@@ -30,28 +29,6 @@ class Company extends User {
     this.phoneNumber = phoneNumber;
     this.mediaLink = mediaLink;
     this.location = location;
-  }
-  public static getSchema(): mongoose.Schema {
-    return new mongoose.Schema({
-      userId: String,
-      role: String,
-      email: String,
-      password: String,
-      companyName: String,
-      issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
-      profilePicture: String,
-      phoneNumber: String,
-      mediaLink: [{ type: mongoose.Schema.Types.ObjectId, ref: "MediaLink" }],
-      location: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
-    });
-  }
-
-  public static getModel(): mongoose.Model<any> {
-    if (mongoose.models.Company) {
-      return mongoose.model("Company");
-    } else {
-      return mongoose.model("Company", this.getSchema());
-    }
   }
 }
 

@@ -43,31 +43,6 @@ class Internship extends Program {
       } intern`
     );
   }
-
-  public static getSchema(): mongoose.Schema {
-    return new mongoose.Schema({
-      programId: String,
-      programName: String,
-      ownerOfProgram: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
-      timeline: [{ type: mongoose.Schema.Types.ObjectId, ref: "Timeline" }],
-      programPicture: [String],
-      programWebsite: String,
-      favoriteStudents: [
-        [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
-      ],
-      relatedField: [String],
-      programType: String,
-      paid: Boolean,
-    });
-  }
-
-  public static getModel(): mongoose.Model<any> {
-    if (mongoose.models.Internship) {
-      return mongoose.models.Internship;
-    } else {
-      return mongoose.model("Internship", this.getSchema());
-    }
-  }
 }
 
 export default Internship;
