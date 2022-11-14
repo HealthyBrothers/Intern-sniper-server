@@ -20,7 +20,7 @@ class Timeline {
     this.endDate = endDate;
     this.status = status;
   }
-  public static getSchema() {
+  public static getSchema(): mongoose.Schema {
     return new mongoose.Schema({
       timelineId: String,
       eventName: String,
