@@ -1,6 +1,8 @@
 import User from "../classes/User";
 
 import express, { Express, Request, Response, NextFunction } from "express";
+import Student from "../classes/Student";
+import { ifError } from "assert";
 const jwt = require("jsonwebtoken");
 
 function generateAccessToken(user: User) {
@@ -36,8 +38,25 @@ function login(req: Request, res: Response) {
   // res.json({ token });
 }
 
-function register(req: Request, res: Response) {
-  //
+function registerStudent(req: Request, res: Response) {
+  const { 
+    email,
+    password,
+    confirmPassword,
+    firstName,
+    lastName,
+    studyingYear, 
+    interestedField, 
+    university, 
+    mediaLink 
+  } = req.body
+  const user = Student.getModel().findOne({ 'email': email })
+  if(user === null) {
+    res.send('This email is already been used.').status(403)
+  }
+  if(password !== confirmPassword) {
+    res.send('Password and Confirm Password doesn\'t match.').status(403)
+  }
 }
 
 function logout(req: Request, res: Response) {
