@@ -1,7 +1,9 @@
+import mongoose from "mongoose";
 import Location from "./Location";
 import User from "./User";
 import Program from "./Program";
 import { MediaType } from "express";
+
 class Company extends User {
   private companyName: String;
   private issuedProgram: Program[];
@@ -24,6 +26,20 @@ class Company extends User {
     this.phoneNumber = phoneNumber;
     this.mediaLink = mediaLink;
     this.location = location;
+  }
+  public static getSchema() {
+    return new mongoose.Schema({
+      companyName: String,
+      issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
+      profilePicture: String,
+      phoneNumber: String,
+      mediaLink: [{ type: mongoose.Schema.Types.ObjectId, ref: "MediaLink" }],
+      location: Location,
+    });
+  }
+
+  public static getModel(): mongoose.Model<any> {
+    return mongoose.model("Company", this.getSchema());
   }
 }
 

@@ -1,7 +1,7 @@
 abstract class User {
-  userId: String;
-  role: String;
-  email: String;
+  protected userId: String;
+  protected role: String;
+  protected email: String;
 
   constructor(userId: String, role: String, email: String) {
     this.userId = userId;
@@ -9,8 +9,7 @@ abstract class User {
     this.email = email;
   }
 
-  // checking user
-  introduceUser() {
+  public introduceUser() {
     console.log(
       `My id: ${this.userId}, my role: ${this.role}, and my email ${this.email}`
     );

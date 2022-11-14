@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import User from "./User";
 import Program from "./Program";
 import MediaLink from "./MediaLink";
@@ -30,6 +31,24 @@ class Student extends User {
     this.profilePicture = profilePicture;
     this.university = university;
     this.mediaLink = mediaLink;
+  }
+  public static getSchema() {
+    return new mongoose.Schema({
+      firstName: String,
+      lastName: String,
+      studyingYear: Number,
+      interestedField: String,
+      favoriteProgram: [
+        { type: mongoose.Schema.Types.ObjectId, ref: "Program" },
+      ],
+      profilePicture: String,
+      university: String,
+      mediaLink: [{ type: mongoose.Schema.Types.ObjectId, ref: "MediaLink" }],
+    });
+  }
+
+  public static getModel(): mongoose.Model<any> {
+    return mongoose.model("Student", this.getSchema());
   }
 }
 

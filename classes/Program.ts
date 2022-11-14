@@ -1,11 +1,20 @@
-import Program from "./Program";
 import Company from "./Company";
 import Timeline from "./Timeline";
 import Student from "./Student";
 import { programType } from "./enum";
 
-class Internship extends Program {
-  super(
+abstract class Program {
+  protected programId: String;
+  protected programName: String;
+  protected ownerOfProgram: Company;
+  protected timeline: Timeline[];
+  protected programPicture: string[];
+  protected programWebsite: string;
+  protected favoriteStudents: Student[];
+  protected relatedField: string[];
+  protected programType: programType;
+
+  constructor(
     programId: String,
     programName: String,
     ownerOfProgram: Company,
@@ -26,6 +35,12 @@ class Internship extends Program {
     this.relatedField = relatedField;
     this.programType = programType;
   }
+
+  public announceProgram() {
+    console.log(
+      `This program is ${this.programName}, it is ${this.programType} and its id is ${this.programId}`
+    );
+  }
 }
 
-export default Internship;
+export default Program;
