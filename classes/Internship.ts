@@ -7,7 +7,8 @@ import { programType } from "./enum";
 
 class Internship extends Program {
   private paid: boolean;
-  super(
+
+  constructor(
     programId: String,
     programName: String,
     ownerOfProgram: Company,
@@ -19,15 +20,17 @@ class Internship extends Program {
     programType: programType,
     paid: boolean
   ) {
-    this.programId = programId;
-    this.programName = programName;
-    this.ownerOfProgram = ownerOfProgram;
-    this.timeline = timeline;
-    this.programPicture = programPicture;
-    this.programWebsite = programWebsite;
-    this.favoriteStudents = favoriteStudents;
-    this.relatedField = relatedField;
-    this.programType = programType;
+    super(
+      programId,
+      programName,
+      ownerOfProgram,
+      timeline,
+      programPicture,
+      programWebsite,
+      favoriteStudents,
+      relatedField,
+      programType
+    );
     this.paid = paid;
   }
 
@@ -41,19 +44,20 @@ class Internship extends Program {
     );
   }
 
-  public static getSchema() {
+  public static getSchema(): mongoose.Schema {
     return new mongoose.Schema({
       programId: String,
       programName: String,
       ownerOfProgram: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
       timeline: [{ type: mongoose.Schema.Types.ObjectId, ref: "Timeline" }],
-      programPicture: String,
+      programPicture: [String],
       programWebsite: String,
       favoriteStudents: [
-        { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
+        [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
       ],
-      relatedField: String,
+      relatedField: [String],
       programType: String,
+      paid: Boolean,
     });
   }
 

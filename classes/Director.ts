@@ -12,9 +12,10 @@ class Director extends User {
     email: String,
     firstname: string,
     lastname: string,
-    transactions: ApprovalTx[]
+    transactions: ApprovalTx[],
+    password: string
   ) {
-    super(userId, "Director", email);
+    super(userId, "Director", email, password);
     this.firstname = firstname;
     this.lastname = lastname;
     this.transactions = transactions;
@@ -22,6 +23,7 @@ class Director extends User {
   public static getSchema() {
     return new mongoose.Schema({
       userId: String,
+      role: String,
       email: String,
       firstname: String,
       lastname: String,

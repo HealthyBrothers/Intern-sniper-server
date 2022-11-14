@@ -13,7 +13,9 @@ class Student extends User {
   private university: string;
   private mediaLink: MediaLink[];
 
-  super(
+  constructor(
+    userId: String,
+    email: String,
     firstName: string,
     lastName: string,
     studyingYear: number,
@@ -21,8 +23,10 @@ class Student extends User {
     favoriteProgram: Program[],
     profilePicture: string,
     university: string,
-    mediaLink: MediaLink[]
+    mediaLink: MediaLink[],
+    password: string
   ) {
+    super(userId, "Student", email, password);
     this.firstName = firstName;
     this.lastName = lastName;
     this.studyingYear = studyingYear;
@@ -32,14 +36,19 @@ class Student extends User {
     this.university = university;
     this.mediaLink = mediaLink;
   }
-  public static getSchema() {
+
+  public static getSchema(): mongoose.Schema {
     return new mongoose.Schema({
+      userId: String,
+      role: String,
+      email: String,
+      password: String,
       firstName: String,
       lastName: String,
       studyingYear: Number,
-      interestedField: String,
+      interestedField: [String],
       favoriteProgram: [
-        { type: mongoose.Schema.Types.ObjectId, ref: "Program" },
+        [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
       ],
       profilePicture: String,
       university: String,
