@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import Internship from "../classes/Internship";
+
+interface IProgram extends Internship, mongoose.Document {}
 
 const ProgramSchema: mongoose.Schema = new mongoose.Schema({
   programId: String,
@@ -15,6 +18,9 @@ const ProgramSchema: mongoose.Schema = new mongoose.Schema({
   paid: Boolean,
 });
 
-const ProgramModel = mongoose.model("Program", ProgramSchema);
+const ProgramModel: mongoose.Model<IProgram> = mongoose.model<IProgram>(
+  "Program",
+  ProgramSchema
+);
 
 export default ProgramModel;
