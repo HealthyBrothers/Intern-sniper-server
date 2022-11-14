@@ -1,44 +1,60 @@
-import User from "../classes/User";
+import { Request, Response, NextFunction, response } from "express";
+import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
+import dotenv from 'dotenv';
+import { UserManager } from "../classes/UserManager";
 
-import express, { Express, Request, Response, NextFunction } from "express";
-import Student from "../classes/Student";
-import { ifError } from "assert";
-const jwt = require("jsonwebtoken");
+dotenv.config()
 
-function generateAccessToken(user: User) {
-  // No Typedef waiting for model
-  return jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: "1800s" });
+interface CustomRequest extends Request {
+  payload: string | JwtPayload
 }
 
-function authenticateToken(req: Request, res: Response, next: NextFunction) {
+interface tokenizeUser {
+  email: String
+}
+
+const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? ''
+const userManager = new UserManager()
+userManager.initialize()
+
+function generateAccessToken(user: tokenizeUser) {
+  return jwt.sign(user, ACCESS_TOKEN, { expiresIn: "1800s" });
+}
+
+export function authenticateToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
   if (token == null) return res.sendStatus(401);
 
-  jwt.verify(
+  const payload = jwt.verify(
     token,
-    process.env.ACCESS_TOKEN as string,
-    (err: Error, user: User) => {
-      console.log(err);
-
-      if (err) return res.sendStatus(403);
-
-      // req.user = user;
-
-      next();
-    }
+    ACCESS_TOKEN
   );
+  (req as CustomRequest).payload = payload
+
+  next()
 }
 
-function login(req: Request, res: Response) {
-  // Pretent login successfully and get the user
-  const user = { username: "melon" };
-  // const token = generateAccessToken(user);
-  // res.json({ token });
+export async function login(req: Request, res: Response) {
+  try {
+    const { email, password } = req.body
+
+    const user = userManager.getUserByEmail(email)
+    if(user === null) return res.status(403).send('invalid email address')
+    if(! await userManager.validatePassword(user, password)) return res.status(403).send('incorrect password')
+
+    const tokenizeUser: tokenizeUser = { email }
+    const token = generateAccessToken(tokenizeUser)
+    res.json({ token })
+  }
+  catch(err) {
+    console.error(err)
+    res.status(403)
+  }
 }
 
-function registerStudent(req: Request, res: Response) {
+export async function registerStudent(req: Request, res: Response) {
   const { 
     email,
     password,
@@ -50,27 +66,57 @@ function registerStudent(req: Request, res: Response) {
     university, 
     mediaLink 
   } = req.body
-  const user = Student.getModel().findOne({ 'email': email })
-  if(user === null) {
-    res.send('This email is already been used.').status(403)
+
+  const user = userManager.getUserByEmail(email)
+  console.log(user)
+  if(user !== null) {
+    return res.status(403).send('This email is already been used.')
   }
   if(password !== confirmPassword) {
-    res.send('Password and Confirm Password doesn\'t match.').status(403)
+    return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
+
+  userManager.createStudent(req.body)
+    .then(response => {
+      res.sendStatus(201)
+    })
+    .catch(err => {
+      res.sendStatus(403)
+      console.error(err)
+    })
 }
 
-function logout(req: Request, res: Response) {
+export async function registerCompany(req: Request, res: Response) {
+  const { 
+    email,
+    password,
+    confirmPassword,
+    companyName,
+    phoneNumber,
+    location
+  } = req.body
+
+  const user = userManager.getUserByEmail(email)
+  console.log(user)
+  if(user !== null) {
+    return res.status(403).send('This email is already been used.')
+  }
+  if(password !== confirmPassword) {
+    return res.status(403).send('Password and Confirm Password doesn\'t match.')
+  }
+
+  userManager.createCompany(req.body)
+    .then(response => {
+      res.sendStatus(201)
+    })
+    .catch(err => {
+      res.sendStatus(403)
+    })
+}
+export function logout(req: Request, res: Response) {
   //
 }
 
-function me(req: Request, res: Response) {
+export function me(req: Request, res: Response) {
   //
 }
-
-module.exports = {
-  authenticateToken,
-  login,
-  register,
-  logout,
-  me,
-};

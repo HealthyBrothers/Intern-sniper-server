@@ -1,12 +1,18 @@
 import express, { Express, Request, Response } from 'express';
+import authRoute from './routes/AuthRoute'
 import dotenv from 'dotenv';
+import mongoose from 'mongoose';
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
 
-const authRoute = require('./routes/authRoute')
+app.use(express.json())
+
+// connect db
+mongoose.connect(process.env.MONGO_URI ?? '')
+
 // app routes
 app.use('/auth', authRoute)
 

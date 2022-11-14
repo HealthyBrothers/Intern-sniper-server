@@ -4,7 +4,6 @@ import Internship from "../classes/Internship";
 interface IProgram extends Internship, mongoose.Document {}
 
 const ProgramSchema: mongoose.Schema = new mongoose.Schema({
-  programId: String,
   programName: String,
   ownerOfProgram: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
   timeline: [{ type: mongoose.Schema.Types.ObjectId, ref: "Timeline" }],

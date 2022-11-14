@@ -27,6 +27,10 @@ abstract class User {
       `my role: ${this.role}, and my email ${this.email}`
     );
   }
+
+  public setPassword(password: string) {
+    this.password = password
+  }
 }
 
 export default User;

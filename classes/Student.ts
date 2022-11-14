@@ -29,6 +29,10 @@ class Student extends User {
     this.favoriteProgram = favoriteProgram;
     this.university = university;
   }
+
+  public getStudent() {
+    return 'Student!'
+  }
 }
 
 export default Student;

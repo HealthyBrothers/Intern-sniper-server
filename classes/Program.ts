@@ -3,7 +3,6 @@ import Timeline from "./Timeline";
 import { programType } from "./enum";
 
 abstract class Program {
-  programId: String;
   programName: String;
   ownerOfProgram: Company;
   timeline: Timeline[];
@@ -14,7 +13,6 @@ abstract class Program {
   programType: programType;
 
   constructor(
-    programId: String,
     programName: String,
     ownerOfProgram: Company,
     timeline: Timeline[],
@@ -24,7 +22,6 @@ abstract class Program {
     relatedField: String[],
     programType: programType
   ) {
-    this.programId = programId;
     this.programName = programName;
     this.ownerOfProgram = ownerOfProgram;
     this.timeline = timeline;
@@ -37,7 +34,7 @@ abstract class Program {
 
   public announceProgram() {
     console.log(
-      `This program is ${this.programName}, it is ${this.programType} and its id is ${this.programId}`
+      `This program is ${this.programName}, it is ${this.programType}`
     );
   }
 }

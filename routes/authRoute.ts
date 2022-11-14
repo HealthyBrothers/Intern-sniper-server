@@ -1,24 +1,24 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
+import  * as authController from '../controllers/AuthController';
 
 const router = express.Router()
-const authController = require('../controllers/authController')
 
-router.post('/login', 
-    authController.login
+router.post('/login',
+  authController.login
 )
 
-router.post('/register', 
-    authController.register
+router.post('/register/student',
+  authController.registerStudent
 )
 
-router.post('/logout', 
-    authController.authenticateToken,
-    authController.logout
+router.post('/logout',
+  authController.authenticateToken,
+  authController.logout
 )
 
-router.post('/me', 
-    authController.authenticateToken,
-    authController.me
+router.post('/me',
+  authController.authenticateToken,
+  authController.me
 )
 
-module.exports = router
+export default router
