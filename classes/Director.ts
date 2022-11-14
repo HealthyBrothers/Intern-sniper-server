@@ -3,16 +3,16 @@ import User from "./User";
 import ApprovalTx from "./ApprovalTx";
 
 class Director extends User {
-  private firstname: string;
-  private lastname: string;
-  private transactions: ApprovalTx[];
+  private firstname: String;
+  private lastname: String;
+  private transactions: ApprovalTx[] | null;
 
   constructor(
     userId: String,
     email: String,
-    firstname: string,
+    firstname: String,
     lastname: string,
-    transactions: ApprovalTx[],
+    transactions: ApprovalTx[] | null,
     password: string
   ) {
     super(userId, "Director", email, password);
@@ -27,6 +27,7 @@ class Director extends User {
       email: String,
       firstname: String,
       lastname: String,
+      password: String,
       transactions: [
         { type: mongoose.Schema.Types.ObjectId, ref: "ApprovalTx" },
       ],

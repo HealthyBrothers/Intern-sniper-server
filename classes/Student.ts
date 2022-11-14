@@ -8,10 +8,10 @@ class Student extends User {
   private lastName: string;
   private studyingYear: number;
   private interestedField: string[];
-  private favoriteProgram: Program[];
+  private favoriteProgram: Program[] | null;
   private profilePicture: string;
   private university: string;
-  private mediaLink: MediaLink[];
+  private mediaLink: MediaLink[] | null;
 
   constructor(
     userId: String,
@@ -20,10 +20,10 @@ class Student extends User {
     lastName: string,
     studyingYear: number,
     interestedField: string[],
-    favoriteProgram: Program[],
+    favoriteProgram: Program[] | null,
     profilePicture: string,
     university: string,
-    mediaLink: MediaLink[],
+    mediaLink: MediaLink[] | null,
     password: string
   ) {
     super(userId, "Student", email, password);

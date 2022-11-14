@@ -15,7 +15,7 @@ class Internship extends Program {
     timeline: Timeline[],
     programPicture: string[],
     programWebsite: string,
-    favoriteStudents: Student[],
+    favoriteStudents: Student[] | null,
     relatedField: string[],
     programType: programType,
     paid: boolean
@@ -40,7 +40,7 @@ class Internship extends Program {
         this.programType
       }, its id is ${this.programId}, and it is ${
         this.paid ? "paid" : "unpaid"
-      } program`
+      } intern`
     );
   }
 

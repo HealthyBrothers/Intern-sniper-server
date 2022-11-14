@@ -10,7 +10,7 @@ abstract class Program {
   protected timeline: Timeline[];
   protected programPicture: string[];
   protected programWebsite: string;
-  protected favoriteStudents: Student[];
+  protected favoriteStudents: Student[] | null;
   protected relatedField: string[];
   protected programType: programType;
 
@@ -21,7 +21,7 @@ abstract class Program {
     timeline: Timeline[],
     programPicture: string[],
     programWebsite: string,
-    favoriteStudents: Student[],
+    favoriteStudents: Student[] | null,
     relatedField: string[],
     programType: programType
   ) {

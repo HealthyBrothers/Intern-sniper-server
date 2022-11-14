@@ -6,21 +6,21 @@ import MediaLink from "./MediaLink";
 
 class Company extends User {
   private companyName: String;
-  private issuedProgram: Program[];
+  private issuedProgram: Program[] | null;
   private profilePicture: String;
   private phoneNumber: String;
-  private mediaLink: MediaLink[];
-  private location: Location;
+  private mediaLink: MediaLink[] | null;
+  private location: Location | null;
 
   constructor(
     userId: String,
     email: String,
     companyName: String,
-    issuedProgram: Program[],
+    issuedProgram: Program[] | null,
     profilePicture: String,
     phoneNumber: String,
-    mediaLink: MediaLink[],
-    location: Location,
+    mediaLink: MediaLink[] | null,
+    location: Location | null,
     password: String
   ) {
     super(userId, "Company", email, password);
