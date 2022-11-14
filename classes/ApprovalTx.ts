@@ -28,7 +28,11 @@ class ApprovalTx {
   }
 
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("ApprovalTx", this.getShema());
+    if (mongoose.models.ApprovalTx) {
+      return mongoose.model("ApprovalTx");
+    } else {
+      return mongoose.model("ApprovalTx", this.getShema());
+    }
   }
 }
 

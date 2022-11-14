@@ -31,7 +31,11 @@ class Timeline {
   }
 
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("Timline", this.getSchema());
+    if (mongoose.models.Timeline) {
+      return mongoose.model("Timeline");
+    } else {
+      return mongoose.model("Timeline", this.getSchema());
+    }
   }
 }
 

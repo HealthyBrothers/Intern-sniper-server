@@ -20,6 +20,7 @@ class Director extends User {
     this.lastname = lastname;
     this.transactions = transactions;
   }
+
   public static getSchema() {
     return new mongoose.Schema({
       userId: String,
@@ -35,7 +36,11 @@ class Director extends User {
   }
 
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("Director", this.getSchema());
+    if (mongoose.models.Director) {
+      return mongoose.model("Director");
+    } else {
+      return mongoose.model("Director", this.getSchema());
+    }
   }
 }
 

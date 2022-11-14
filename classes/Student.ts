@@ -57,7 +57,11 @@ class Student extends User {
   }
 
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("Student", this.getSchema());
+    if (mongoose.models.Student) {
+      return mongoose.model("Student");
+    } else {
+      return mongoose.model("Student", this.getSchema());
+    }
   }
 }
 

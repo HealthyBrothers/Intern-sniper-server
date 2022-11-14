@@ -62,7 +62,11 @@ class Internship extends Program {
   }
 
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("Internship", this.getSchema());
+    if (mongoose.models.Internship) {
+      return mongoose.models.Internship;
+    } else {
+      return mongoose.model("Internship", this.getSchema());
+    }
   }
 }
 

@@ -19,7 +19,11 @@ class Location {
   }
 
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("Location", this.getSchema());
+    if (mongoose.models.Location) {
+      return mongoose.model("Location");
+    } else {
+      return mongoose.model("Location", this.getSchema());
+    }
   }
 }
 

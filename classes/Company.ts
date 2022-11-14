@@ -45,8 +45,13 @@ class Company extends User {
       location: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
     });
   }
+
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("Company", Company.getSchema());
+    if (mongoose.models.Company) {
+      return mongoose.model("Company");
+    } else {
+      return mongoose.model("Company", this.getSchema());
+    }
   }
 }
 

@@ -20,7 +20,11 @@ class MediaLink {
   }
 
   public static getModel(): mongoose.Model<any> {
-    return mongoose.model("MediaLink", this.getSchema());
+    if (mongoose.models.MediaLink) {
+      return mongoose.model("MediaLink");
+    } else {
+      return mongoose.model("MediaLink", this.getSchema());
+    }
   }
 }
 
