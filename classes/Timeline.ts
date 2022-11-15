@@ -1,9 +1,9 @@
 class Timeline {
-  private timelineId: String;
-  private eventName: String;
-  private startDate: String;
-  private endDate: String;
-  private status: String;
+  timelineId: String;
+  eventName: String;
+  startDate: String;
+  endDate: String;
+  status: String;
 
   constructor(
     timelineId: String,

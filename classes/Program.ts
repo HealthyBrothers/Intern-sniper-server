@@ -1,28 +1,27 @@
 import Company from "./Company";
 import Timeline from "./Timeline";
-import Student from "./Student";
 import { programType } from "./enum";
 
 abstract class Program {
-  protected programId: String;
-  protected programName: String;
-  protected ownerOfProgram: Company;
-  protected timeline: Timeline[];
-  protected programPicture: string[];
-  protected programWebsite: string;
-  protected favoriteStudents: Student[] | null;
-  protected relatedField: string[];
-  protected programType: programType;
+  programId: String;
+  programName: String;
+  ownerOfProgram: Company;
+  timeline: Timeline[];
+  programPicture: String[];
+  programWebsite: String;
+  favoriteStudents: String[] | null;
+  relatedField: String[];
+  programType: programType;
 
   constructor(
     programId: String,
     programName: String,
     ownerOfProgram: Company,
     timeline: Timeline[],
-    programPicture: string[],
-    programWebsite: string,
-    favoriteStudents: Student[] | null,
-    relatedField: string[],
+    programPicture: String[],
+    programWebsite: String,
+    favoriteStudents: String[] | null,
+    relatedField: String[],
     programType: programType
   ) {
     this.programId = programId;

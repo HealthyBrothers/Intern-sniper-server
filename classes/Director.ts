@@ -3,9 +3,9 @@ import MediaLink from "./MediaLink";
 import ApprovalTx from "./ApprovalTx";
 
 class Director extends User {
-  private firstname: String;
-  private lastname: String;
-  private transactions: ApprovalTx[] | null;
+  firstname: String;
+  lastname: String;
+  transactions: ApprovalTx[] | null;
 
   constructor(
     userId: String,

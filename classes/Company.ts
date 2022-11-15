@@ -3,10 +3,10 @@ import User from "./User";
 import MediaLink from "./MediaLink";
 
 class Company extends User {
-  private companyName: String;
-  private issuedProgram: String[] | null;
-  private phoneNumber: String;
-  private location: Location | null;
+  companyName: String;
+  issuedProgram: String[] | null;
+  phoneNumber: String;
+  location: Location | null;
 
   constructor(
     userId: String,

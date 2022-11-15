@@ -1,7 +1,7 @@
 class Location {
-  private locationId: String;
-  private country: String;
-  private province: String;
+  locationId: String;
+  country: String;
+  province: String;
 
   constructor(locationId: String, country: String, province: String) {
     this.locationId = locationId;

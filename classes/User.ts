@@ -1,12 +1,12 @@
 import MediaLink from "./MediaLink";
 
 abstract class User {
-  protected mediaLink: MediaLink[] | null;
-  protected userId: String;
-  protected role: String;
-  protected email: String;
-  protected password: String;
-  protected profilePicture: String | null;
+  mediaLink: MediaLink[] | null;
+  userId: String;
+  role: String;
+  email: String;
+  password: String;
+  profilePicture: String | null;
 
   constructor(
     userId: String,

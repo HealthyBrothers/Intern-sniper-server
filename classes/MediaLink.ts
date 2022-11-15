@@ -1,9 +1,9 @@
 import { mediaLinkType } from "./enum";
 
 class MediaLink {
-  private linkId: string;
-  private url: string;
-  private type: mediaLinkType;
+  linkId: string;
+  url: string;
+  type: mediaLinkType;
 
   constructor(linkId: string, url: string, type: mediaLinkType) {
     this.linkId = linkId;

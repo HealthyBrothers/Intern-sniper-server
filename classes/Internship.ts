@@ -1,22 +1,20 @@
-import mongoose from "mongoose";
 import Program from "./Program";
 import Company from "./Company";
 import Timeline from "./Timeline";
-import Student from "./Student";
 import { programType } from "./enum";
 
 class Internship extends Program {
-  private paid: boolean;
+  paid: boolean;
 
   constructor(
     programId: String,
     programName: String,
     ownerOfProgram: Company,
     timeline: Timeline[],
-    programPicture: string[],
-    programWebsite: string,
-    favoriteStudents: Student[] | null,
-    relatedField: string[],
+    programPicture: String[],
+    programWebsite: String,
+    favoriteStudents: String[] | null,
+    relatedField: String[],
     programType: programType,
     paid: boolean
   ) {

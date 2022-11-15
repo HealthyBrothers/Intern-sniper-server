@@ -1,8 +1,8 @@
 class ApprovalTx {
-  private transactionId: String;
-  private program: String;
-  private approval: String;
-  private timestamp: String;
+  transactionId: String;
+  program: String;
+  approval: String;
+  timestamp: String;
 
   constructor(
     transactionId: String,
