@@ -11,6 +11,10 @@ router.post('/register/student',
   authController.registerStudent
 )
 
+router.post('/register/company',
+  authController.registerCompany
+)
+
 router.post('/logout',
   authController.authenticateToken,
   authController.logout
