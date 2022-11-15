@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import Student from "../classes/Student";
 import Company from "../classes/Company";
 import Director from "../classes/Director";
-import Program from "../classes/Program";
 
 interface IUser extends Director, Student, Company, mongoose.Document {}
 
@@ -18,7 +17,7 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
   university: { type: String, required: false },
   interestedField: { type: [String], required: false },
   favoriteProgram: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
+    type: [String],
     required: false,
   },
   mediaLink: {
