@@ -1,5 +1,4 @@
 import User from "./User";
-import Program from "./Program";
 import MediaLink from "./MediaLink";
 
 class Student extends User {
@@ -7,7 +6,7 @@ class Student extends User {
   private lastName: String;
   private studyingYear: number;
   private interestedField: String[];
-  private favoriteProgram: Program[] | null;
+  private favoriteProgram: String[] | null;
   private university: String;
 
   constructor(
@@ -17,7 +16,7 @@ class Student extends User {
     lastName: String,
     studyingYear: number,
     interestedField: String[],
-    favoriteProgram: Program[] | null,
+    favoriteProgram: String[] | null,
     university: String,
     password: String,
     mediaLink: MediaLink[] | null,

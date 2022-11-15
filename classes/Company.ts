@@ -1,11 +1,10 @@
 import Location from "./Location";
 import User from "./User";
-import Program from "./Program";
 import MediaLink from "./MediaLink";
 
 class Company extends User {
   private companyName: String;
-  private issuedProgram: Program[] | null;
+  private issuedProgram: String[] | null;
   private phoneNumber: String;
   private location: Location | null;
 
@@ -13,7 +12,7 @@ class Company extends User {
     userId: String,
     email: String,
     companyName: String,
-    issuedProgram: Program[] | null,
+    issuedProgram: String[] | null,
     profilePicture: String | null,
     phoneNumber: String,
     mediaLink: MediaLink[] | null,
