@@ -10,7 +10,6 @@ class Student extends User {
   university: String;
 
   constructor(
-    userId: String,
     email: String,
     firstName: String,
     lastName: String,
@@ -22,7 +21,7 @@ class Student extends User {
     mediaLink: MediaLink[] | null,
     profilePicture: String | null
   ) {
-    super(userId, "Student", email, password, mediaLink, profilePicture);
+    super("Student", email, password, mediaLink, profilePicture);
     this.firstName = firstName;
     this.lastName = lastName;
     this.studyingYear = studyingYear;

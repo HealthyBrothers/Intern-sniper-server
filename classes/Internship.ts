@@ -7,7 +7,6 @@ class Internship extends Program {
   paid: boolean;
 
   constructor(
-    programId: String,
     programName: String,
     ownerOfProgram: Company,
     timeline: Timeline[],
@@ -19,7 +18,6 @@ class Internship extends Program {
     paid: boolean
   ) {
     super(
-      programId,
       programName,
       ownerOfProgram,
       timeline,
@@ -36,7 +34,7 @@ class Internship extends Program {
     console.log(
       `This program is ${this.programName}, it is ${
         this.programType
-      }, its id is ${this.programId}, and it is ${
+      } and it is ${
         this.paid ? "paid" : "unpaid"
       } intern`
     );

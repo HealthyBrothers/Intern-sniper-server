@@ -9,7 +9,6 @@ class Company extends User {
   location: Location | null;
 
   constructor(
-    userId: String,
     email: String,
     companyName: String,
     issuedProgram: String[] | null,
@@ -19,7 +18,7 @@ class Company extends User {
     location: Location | null,
     password: String
   ) {
-    super(userId, "Company", email, password, mediaLink, profilePicture);
+    super("Company", email, password, mediaLink, profilePicture);
     this.companyName = companyName;
     this.issuedProgram = issuedProgram;
     this.profilePicture = profilePicture;

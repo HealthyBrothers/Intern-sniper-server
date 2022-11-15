@@ -6,7 +6,6 @@ import Director from "../classes/Director";
 interface IUser extends Director, Student, Company, mongoose.Document {}
 
 const UserSchema: mongoose.Schema = new mongoose.Schema({
-  userId: { type: String, required: true, unique: true },
   role: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
