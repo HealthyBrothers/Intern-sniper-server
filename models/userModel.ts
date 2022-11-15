@@ -1,14 +1,10 @@
 import mongoose from "mongoose";
+import Student from "../classes/Student";
 import Company from "../classes/Company";
 import Director from "../classes/Director";
 import Program from "../classes/Program";
 
-interface IUser extends Director, Company, mongoose.Document {
-  studyingYear: number;
-  interestedField: String[];
-  favoriteProgram: Program[] | null;
-  university: String;
-}
+interface IUser extends Director, Student, Company, mongoose.Document {}
 
 const UserSchema: mongoose.Schema = new mongoose.Schema({
   userId: { type: String, required: true, unique: true },
