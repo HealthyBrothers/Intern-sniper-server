@@ -3,37 +3,33 @@ import Program from "./Program";
 import MediaLink from "./MediaLink";
 
 class Student extends User {
-  private firstName: string;
-  private lastName: string;
+  private firstName: String;
+  private lastName: String;
   private studyingYear: number;
-  private interestedField: string[];
+  private interestedField: String[];
   private favoriteProgram: Program[] | null;
-  private profilePicture: string;
-  private university: string;
-  private mediaLink: MediaLink[] | null;
+  private university: String;
 
   constructor(
     userId: String,
     email: String,
-    firstName: string,
-    lastName: string,
+    firstName: String,
+    lastName: String,
     studyingYear: number,
-    interestedField: string[],
+    interestedField: String[],
     favoriteProgram: Program[] | null,
-    profilePicture: string,
-    university: string,
+    university: String,
+    password: String,
     mediaLink: MediaLink[] | null,
-    password: string
+    profilePicture: String | null
   ) {
-    super(userId, "Student", email, password);
+    super(userId, "Student", email, password, mediaLink, profilePicture);
     this.firstName = firstName;
     this.lastName = lastName;
     this.studyingYear = studyingYear;
     this.interestedField = interestedField;
     this.favoriteProgram = favoriteProgram;
-    this.profilePicture = profilePicture;
     this.university = university;
-    this.mediaLink = mediaLink;
   }
 }
 

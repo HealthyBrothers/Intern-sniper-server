@@ -6,9 +6,7 @@ import MediaLink from "./MediaLink";
 class Company extends User {
   private companyName: String;
   private issuedProgram: Program[] | null;
-  private profilePicture: String;
   private phoneNumber: String;
-  private mediaLink: MediaLink[] | null;
   private location: Location | null;
 
   constructor(
@@ -16,18 +14,17 @@ class Company extends User {
     email: String,
     companyName: String,
     issuedProgram: Program[] | null,
-    profilePicture: String,
+    profilePicture: String | null,
     phoneNumber: String,
     mediaLink: MediaLink[] | null,
     location: Location | null,
     password: String
   ) {
-    super(userId, "Company", email, password);
+    super(userId, "Company", email, password, mediaLink, profilePicture);
     this.companyName = companyName;
     this.issuedProgram = issuedProgram;
     this.profilePicture = profilePicture;
     this.phoneNumber = phoneNumber;
-    this.mediaLink = mediaLink;
     this.location = location;
   }
 }
