@@ -37,7 +37,8 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
   issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
   phoneNumber: { type: String, required: false },
   location: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Location",
     required: false,
   }
 });
