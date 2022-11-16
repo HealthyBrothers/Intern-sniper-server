@@ -1,15 +1,21 @@
 import User from "../classes/User";
+import MediaLinkModel, { IMediaLinkDocument } from "../models/MadiaLinkModel";
 import UserModel, { IUserDocument } from "../models/UserModel";
+import { MediaLinkService } from "./MediaLinkService";
 
-export class UserServices {
+export class UserService {
 
   public async fetchAllUser(): Promise<IUserDocument[]> {
     const users: IUserDocument[] = await UserModel.find({})
     return users
   }
 
-  public create(user: User): Promise<IUserDocument> {
-    const newUser = new UserModel(user)
+  public async create(user: User): Promise<IUserDocument> {
+    const mediaLinks = user.mediaLink
+    const mediaLinkService = new MediaLinkService()
+    const mediaLinksDocument = await mediaLinkService.create(mediaLinks)
+
+    const newUser = new UserModel({ ...user, mediaLink: mediaLinksDocument })
     newUser.setPassword(user.password as string)
     return newUser.save()
   }

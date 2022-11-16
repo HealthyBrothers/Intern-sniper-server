@@ -79,10 +79,7 @@ export async function registerStudent(req: Request, res: Response) {
     return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
 
-  let mediaLinksParsed: MediaLink[] = []
-  if(mediaLinks !== null) {
-    mediaLinksParsed = mediaLinkManager.parseMediaLinks(mediaLinks)
-  }
+  const mediaLinksParsed: MediaLink[] = mediaLinkManager.parseMediaLinks(mediaLinks)
   userManager.createStudent({ ...req.body, mediaLink: mediaLinksParsed })
     .then(response => {
       res.sendStatus(201)
@@ -100,7 +97,8 @@ export async function registerCompany(req: Request, res: Response) {
     confirmPassword,
     companyName,
     phoneNumber,
-    location
+    location,
+    mediaLinks
   } = req.body
 
   const user = userManager.getUserByEmail(email)
@@ -111,7 +109,8 @@ export async function registerCompany(req: Request, res: Response) {
     return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
 
-  userManager.createCompany(req.body)
+  const mediaLinksParsed: MediaLink[] = mediaLinkManager.parseMediaLinks(mediaLinks)
+  userManager.createCompany({ ...req.body, mediaLink: mediaLinksParsed})
     .then(response => {
       res.sendStatus(201)
     })

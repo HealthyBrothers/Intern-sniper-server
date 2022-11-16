@@ -1,8 +1,16 @@
 import MediaLink from "../classes/MediaLink";
+import MediaLinkModel, { IMediaLinkDocument } from "../models/MadiaLinkModel";
 
-export class mediaLinkService {
+export class MediaLinkService {
   
-  public create(mediaLinks: MediaLink[]) {
-    
+  public async create(mediaLinks: MediaLink[] | null): Promise<IMediaLinkDocument[]> {
+    const mediaLinksDocument: IMediaLinkDocument[] = []
+    if(mediaLinks !== null) {
+      for (let mediaLink of mediaLinks) {
+        const mediaLinkDocument = await MediaLinkModel.create(mediaLink)
+        mediaLinksDocument.push(mediaLinkDocument)
+      }
+    }
+    return mediaLinksDocument
   }
 }

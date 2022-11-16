@@ -1,5 +1,5 @@
 import { IUserDocument } from "../models/UserModel";
-import { UserServices } from "../services/UserServices";
+import { UserService } from "../services/UserService";
 import Company from "./Company";
 import Director from "./Director";
 import Student from "./Student";
@@ -7,10 +7,10 @@ import User from "./User";
 
 export class UserManager {
   users: User[]
-  userServices: UserServices
+  userServices: UserService
 
   constructor() {
-    this.userServices = new UserServices()
+    this.userServices = new UserService()
   }
 
   async initialize() {
