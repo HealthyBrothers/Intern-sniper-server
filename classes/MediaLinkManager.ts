@@ -2,16 +2,14 @@ import { mediaLinkService } from "../services/MediaLinkService";
 import MediaLink from "./MediaLink";
 
 export class MediaLinkManager {
-  mediaLinkService: mediaLinkService
 
-  constructor() {
-    this.mediaLinkService = new mediaLinkService()
-  }
+  public parseMediaLinks(mediaLinks: MediaLink[]): MediaLink[] {
+    const newMediaLinks: MediaLink[] = []
 
-  public create(mediaLink: MediaLink[]) {
-    console.log(mediaLink)
-    // this.mediaLinkService.create(mediaLinks)
-
-    // return mediaLinks[]
+    for(let mediaLink of mediaLinks) {
+      const newMediaLink = new MediaLink(mediaLink.url, mediaLink.type)
+      newMediaLinks.push(newMediaLink)
+    }
+    return newMediaLinks
   }
 }

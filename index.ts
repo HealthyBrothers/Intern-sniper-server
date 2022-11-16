@@ -8,15 +8,11 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
-<<<<<<< HEAD
 app.use(express.json())
 
 // connect db
 mongoose.connect(process.env.MONGO_URI ?? '')
 
-=======
-const authRoute = require('./routes/AuthRoute')
->>>>>>> model
 // app routes
 app.use('/auth', authRoute)
 
