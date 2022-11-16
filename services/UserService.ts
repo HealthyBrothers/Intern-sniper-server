@@ -17,7 +17,7 @@ export class UserService {
     const mediaLinksDocument = await mediaLinkService.create(mediaLinks)
 
     let locationDocument: ILocationDocument | null = null
-    if((user as Company).location !== null)
+    if((user as Company).location != null)
       locationDocument = await LocationModel.create((user as Company).location)
 
     const newUser = new UserModel({ ...user, mediaLink: mediaLinksDocument, location: locationDocument })
