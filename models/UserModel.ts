@@ -5,13 +5,13 @@ import Director from "../classes/Director";
 
 interface IUser extends Director, Student, Company, mongoose.Document {}
 
-const UserSchema: mongoose.Schema = new mongoose.Schema({
+const UserSchema: mongoose.Schema<IUser> = new mongoose.Schema({
   role: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   firstName: { type: String, required: false },
   lastName: { type: String, required: false },
-  studyingYear: { type: String, required: false },
+  studyingYear: { type: Number, required: false },
   profilePicture: { type: String, required: false },
   university: { type: String, required: false },
   interestedField: { type: [String], required: false },
@@ -31,7 +31,8 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
   issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
   phoneNumber: { type: String, required: false },
   location: {
-    type: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: "Location",
     required: false,
   }
 });
