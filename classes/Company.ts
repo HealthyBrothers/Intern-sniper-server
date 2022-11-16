@@ -27,7 +27,19 @@ class Company extends User {
   }
 
   public getName(): string {
-    return this.companyName.toString()
+    return this.companyName.toString();
+  }
+
+  public updateCompanyProfile(
+    companyName: String,
+    profilePicture: String | null,
+    phoneNumber: String,
+    mediaLink: MediaLink[] | null
+  ) {
+    this.companyName = companyName;
+    this.profilePicture = profilePicture;
+    this.phoneNumber = phoneNumber;
+    this.mediaLink = mediaLink;
   }
 }
 

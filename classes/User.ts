@@ -22,16 +22,14 @@ abstract class User {
     this.profilePicture = profilePicture;
   }
 
-  abstract getName(): string
+  abstract getName(): string;
 
   public introduceUser() {
-    console.log(
-      `my role: ${this.role}, and my email ${this.email}`
-    );
+    console.log(`my role: ${this.role}, and my email ${this.email}`);
   }
 
   public setPassword(password: string) {
-    this.password = password
+    this.password = password;
   }
 }
 

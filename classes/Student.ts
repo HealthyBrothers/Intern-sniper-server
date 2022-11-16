@@ -31,7 +31,29 @@ class Student extends User {
   }
 
   public getName(): string {
-    return this.firstName.toString() + ' ' + this.lastName.toString()
+    return this.firstName.toString() + " " + this.lastName.toString();
+  }
+
+  public updateStudentProfile(
+    firstName: String,
+    lastName: String,
+    studyingYear: number,
+    interestedField: String[],
+    university: String,
+    mediaLink: MediaLink[] | null,
+    profilePicture: String | null
+  ) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.studyingYear = studyingYear;
+    this.interestedField = interestedField;
+    this.university = university;
+    this.mediaLink = mediaLink;
+    this.profilePicture = profilePicture;
+  }
+
+  public addFavoriteProgram(favoriteProgram: String[] | null) {
+    this.favoriteProgram = favoriteProgram;
   }
 }
 
