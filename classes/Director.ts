@@ -22,7 +22,7 @@ class Director extends User {
     this.transactions = transactions;
   } 
   public getName(): string {
-    return this.firstName.toString() + this.lastName.toString()
+    return this.firstName.toString() + ' ' + this.lastName.toString()
   }
 }
 

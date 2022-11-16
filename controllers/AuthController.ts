@@ -3,6 +3,7 @@ import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
 import dotenv from 'dotenv';
 import { UserManager } from "../classes/UserManager";
 import Student from "../classes/Student";
+import { MediaLinkManager } from "../classes/MediaLinkManager";
 
 dotenv.config()
 
@@ -16,6 +17,7 @@ interface tokenizeUser {
 
 const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? ''
 const userManager = new UserManager()
+const mediaLinkManager = new MediaLinkManager()
 userManager.initialize()
 
 function generateAccessToken(user: tokenizeUser) {
@@ -76,6 +78,9 @@ export async function registerStudent(req: Request, res: Response) {
     return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
 
+  if(mediaLink !== null) {
+    mediaLinkManager.create(mediaLink)
+  }
   userManager.createStudent(req.body)
     .then(response => {
       res.sendStatus(201)
