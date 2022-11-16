@@ -5,6 +5,7 @@ import { UserManager } from "../classes/UserManager";
 import Student from "../classes/Student";
 import { MediaLinkManager } from "../classes/MediaLinkManager";
 import MediaLink from "../classes/MediaLink";
+import Location from "../classes/Location";
 
 dotenv.config()
 
@@ -109,12 +110,17 @@ export async function registerCompany(req: Request, res: Response) {
     return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
 
+  let locationParsed = null
+  if(location != null) { 
+    locationParsed = new Location(location?.country, location?.province)
+  }
   const mediaLinksParsed: MediaLink[] = mediaLinkManager.parseMediaLinks(mediaLinks)
-  userManager.createCompany({ ...req.body, mediaLink: mediaLinksParsed})
+  userManager.createCompany({ ...req.body, mediaLink: mediaLinksParsed, location: locationParsed })
     .then(response => {
       res.sendStatus(201)
     })
     .catch(err => {
+      console.error(err)
       res.sendStatus(403)
     })
 }

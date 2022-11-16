@@ -1,5 +1,6 @@
+import Company from "../classes/Company";
 import User from "../classes/User";
-import MediaLinkModel, { IMediaLinkDocument } from "../models/MadiaLinkModel";
+import LocationModel, { ILocationDocument } from "../models/LocationModel";
 import UserModel, { IUserDocument } from "../models/UserModel";
 import { MediaLinkService } from "./MediaLinkService";
 
@@ -15,7 +16,11 @@ export class UserService {
     const mediaLinkService = new MediaLinkService()
     const mediaLinksDocument = await mediaLinkService.create(mediaLinks)
 
-    const newUser = new UserModel({ ...user, mediaLink: mediaLinksDocument })
+    let locationDocument: ILocationDocument | null = null
+    if((user as Company).location !== null)
+      locationDocument = await LocationModel.create((user as Company).location)
+
+    const newUser = new UserModel({ ...user, mediaLink: mediaLinksDocument, location: locationDocument })
     newUser.setPassword(user.password as string)
     return newUser.save()
   }
