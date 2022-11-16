@@ -11,7 +11,6 @@ export class UserServices {
   public create(user: User): Promise<IUserDocument> {
     const newUser = new UserModel(user)
     newUser.setPassword(user.password as string)
-    console.log(newUser)
     return newUser.save()
   }
 
