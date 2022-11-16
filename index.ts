@@ -6,7 +6,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
-const authRoute = require('./routes/authRoute')
+const authRoute = require('./routes/AuthRoute')
 // app routes
 app.use('/auth', authRoute)
 

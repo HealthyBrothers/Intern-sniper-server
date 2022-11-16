@@ -1,7 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 
 const router = express.Router()
-const authController = require('../controllers/authController')
+const authController = require('../controllers/AuthController')
 
 router.post('/login', 
     authController.login
