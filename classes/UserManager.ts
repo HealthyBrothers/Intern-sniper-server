@@ -29,21 +29,21 @@ export class UserManager {
         phoneNumber, location } = user
 
       switch (role) {
-        case 'student': {
+        case 'Student': {
           const student = new Student(email, firstName, lastName,
             studyingYear, interestedField, null,
             university, password, null, profilePicture)
           users.push(student)
           break
         }
-        case 'company': {
+        case 'Company': {
           const company = new Company(email, companyName,
             null, profilePicture, phoneNumber,
             null, null, password)
           users.push(company)
           break
         }
-        case 'director': {
+        case 'Director': {
           const director = new Director(email, firstName,
             lastName, null, password,
             null, profilePicture)

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction, response } from "express";
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
 import dotenv from 'dotenv';
 import { UserManager } from "../classes/UserManager";
+import Student from "../classes/Student";
 
 dotenv.config()
 
@@ -10,7 +11,7 @@ interface CustomRequest extends Request {
 }
 
 interface tokenizeUser {
-  email: String
+  email: string
 }
 
 const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? ''
@@ -68,7 +69,6 @@ export async function registerStudent(req: Request, res: Response) {
   } = req.body
 
   const user = userManager.getUserByEmail(email)
-  console.log(user)
   if(user !== null) {
     return res.status(403).send('This email is already been used.')
   }
@@ -97,7 +97,6 @@ export async function registerCompany(req: Request, res: Response) {
   } = req.body
 
   const user = userManager.getUserByEmail(email)
-  console.log(user)
   if(user !== null) {
     return res.status(403).send('This email is already been used.')
   }
@@ -118,5 +117,8 @@ export function logout(req: Request, res: Response) {
 }
 
 export function me(req: Request, res: Response) {
-  //
+  const { email } = (req as CustomRequest).payload as tokenizeUser
+  const user = userManager.getUserByEmail(email)
+
+  res.json({ name: user?.getName(), email: user?.email, role: user?.role, profilePicture: user?.profilePicture })
 }

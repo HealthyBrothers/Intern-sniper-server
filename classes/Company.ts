@@ -25,6 +25,10 @@ class Company extends User {
     this.phoneNumber = phoneNumber;
     this.location = location;
   }
+
+  public getName(): string {
+    return this.companyName.toString()
+  }
 }
 
 export default Company;

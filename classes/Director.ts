@@ -3,8 +3,8 @@ import MediaLink from "./MediaLink";
 import ApprovalTx from "./ApprovalTx";
 
 class Director extends User {
-  firstname: String;
-  lastname: String;
+  firstName: String;
+  lastName: String;
   transactions: ApprovalTx[] | null;
 
   constructor(
@@ -17,9 +17,12 @@ class Director extends User {
     profilePicture: String | null
   ) {
     super("Director", email, password, mediaLink, profilePicture);
-    this.firstname = firstname;
-    this.lastname = lastname;
+    this.firstName = firstname;
+    this.lastName = lastname;
     this.transactions = transactions;
+  } 
+  public getName(): string {
+    return this.firstName.toString() + this.lastName.toString()
   }
 }
 

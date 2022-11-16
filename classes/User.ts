@@ -22,6 +22,8 @@ abstract class User {
     this.profilePicture = profilePicture;
   }
 
+  abstract getName(): string
+
   public introduceUser() {
     console.log(
       `my role: ${this.role}, and my email ${this.email}`
