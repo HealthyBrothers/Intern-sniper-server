@@ -30,12 +30,10 @@ const UserSchema: mongoose.Schema = new mongoose.Schema({
   companyName: { type: String, required: false },
   issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
   phoneNumber: { type: String, required: false },
-  location: [
-    {
-      type: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
-      required: false,
-    },
-  ],
+  location: {
+    type: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
+    required: false,
+  }
 });
 
 const UserModel: mongoose.Model<IUser> = mongoose.model<IUser>(
