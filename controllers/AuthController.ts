@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { Request, Response, NextFunction, response } from "express";
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
 import dotenv from 'dotenv';
@@ -25,11 +26,25 @@ function generateAccessToken(user: tokenizeUser) {
 }
 
 export function authenticateToken(req: Request, res: Response, next: NextFunction) {
+=======
+import User from "../classes/User";
+
+import express, { Express, Request, Response, NextFunction } from "express";
+const jwt = require("jsonwebtoken");
+
+function generateAccessToken(user: User) {
+  // No Typedef waiting for model
+  return jwt.sign(user, process.env.ACCESS_TOKEN, { expiresIn: "1800s" });
+}
+
+function authenticateToken(req: Request, res: Response, next: NextFunction) {
+>>>>>>> model
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 
   if (token == null) return res.sendStatus(401);
 
+<<<<<<< HEAD
   const payload = jwt.verify(
     token,
     ACCESS_TOKEN
@@ -127,3 +142,46 @@ export function me(req: Request, res: Response) {
 
   res.json({ name: user?.getName(), email: user?.email, role: user?.role, profilePicture: user?.profilePicture })
 }
+=======
+  jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN as string,
+    (err: Error, user: User) => {
+      console.log(err);
+
+      if (err) return res.sendStatus(403);
+
+      // req.user = user;
+
+      next();
+    }
+  );
+}
+
+function login(req: Request, res: Response) {
+  // Pretent login successfully and get the user
+  const user = { username: "melon" };
+  // const token = generateAccessToken(user);
+  // res.json({ token });
+}
+
+function register(req: Request, res: Response) {
+  //
+}
+
+function logout(req: Request, res: Response) {
+  //
+}
+
+function me(req: Request, res: Response) {
+  //
+}
+
+module.exports = {
+  authenticateToken,
+  login,
+  register,
+  logout,
+  me,
+};
+>>>>>>> model
