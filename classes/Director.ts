@@ -13,10 +13,11 @@ class Director extends User {
     lastname: String,
     transactions: ApprovalTx[] | null,
     password: String,
+    salt: String | null,
     mediaLink: MediaLink[] | null,
     profilePicture: String | null
   ) {
-    super("Director", email, password, mediaLink, profilePicture);
+    super("Director", email, password, salt, mediaLink, profilePicture);
     this.firstName = firstname;
     this.lastName = lastname;
     this.transactions = transactions;
