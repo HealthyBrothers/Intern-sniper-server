@@ -16,7 +16,7 @@ class ProgramManager {
   }
 
   public async createProgram(program: Internship): Promise<Program> {
-    if (Program instanceof Internship) {
+    if (program instanceof Internship) {
       const newProgram = await ProgramModel.create(program);
       newProgram.save();
       return newProgram;
