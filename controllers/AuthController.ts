@@ -2,14 +2,15 @@ import { Request, Response, NextFunction, response } from "express";
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
 import dotenv from 'dotenv';
 import { UserManager } from "../classes/UserManager";
-import Student from "../classes/Student";
+import User from '../classes/User'
 import { MediaLinkManager } from "../classes/MediaLinkManager";
 import MediaLink from "../classes/MediaLink";
+import Location from "../classes/Location";
 
 dotenv.config()
 
 interface CustomRequest extends Request {
-  payload: string | JwtPayload
+  user: User
 }
 
 interface tokenizeUser {
@@ -35,7 +36,10 @@ export function authenticateToken(req: Request, res: Response, next: NextFunctio
     token,
     ACCESS_TOKEN
   );
-  (req as CustomRequest).payload = payload
+  const { email } = payload as tokenizeUser
+  const user: User | null = userManager.getUserByEmail(email)
+  if(user === null) return res.sendStatus(403);
+  (req as CustomRequest).user = user
 
   next()
 }
@@ -109,12 +113,17 @@ export async function registerCompany(req: Request, res: Response) {
     return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
 
+  let locationParsed = null
+  if(location != null) { 
+    locationParsed = new Location(location?.country, location?.province)
+  }
   const mediaLinksParsed: MediaLink[] = mediaLinkManager.parseMediaLinks(mediaLinks)
-  userManager.createCompany({ ...req.body, mediaLink: mediaLinksParsed})
+  userManager.createCompany({ ...req.body, mediaLink: mediaLinksParsed, location: locationParsed })
     .then(response => {
       res.sendStatus(201)
     })
     .catch(err => {
+      console.error(err)
       res.sendStatus(403)
     })
 }
@@ -123,8 +132,7 @@ export function logout(req: Request, res: Response) {
 }
 
 export function me(req: Request, res: Response) {
-  const { email } = (req as CustomRequest).payload as tokenizeUser
-  const user = userManager.getUserByEmail(email)
+  const user = (req as CustomRequest).user
 
   res.json({ name: user?.getName(), email: user?.email, role: user?.role, profilePicture: user?.profilePicture })
 }
