@@ -1,5 +1,5 @@
 import express, { Express, Request, Response } from "express";
-import authRoute from "./routes/AuthRoute";
+import authRoute from "./routes/authRoute";
 import programRoute from "./routes/programRoute";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
