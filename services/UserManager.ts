@@ -40,6 +40,7 @@ export class UserManager {
   }
 
   public create(user: User): Promise<IUserDocument> {
+    console.log(user)
     return UserModel.create(user)
   }
 
