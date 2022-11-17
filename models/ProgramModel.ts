@@ -1,12 +1,14 @@
 import mongoose from "mongoose";
 import Internship from "../classes/Internship";
+import { TimelineSchema } from "./TimelineSchema";
+import { CompanySchema } from "./CompanySchema";
 
 interface IProgram extends Internship, mongoose.Document {}
 
-const ProgramSchema: mongoose.Schema = new mongoose.Schema({
+export const ProgramSchema: mongoose.Schema = new mongoose.Schema({
   programName: String,
-  ownerOfProgram: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
-  timeline: [{ type: mongoose.Schema.Types.ObjectId, ref: "Timeline" }],
+  ownerOfProgram: { type: [CompanySchema], required: true },
+  timeline: { type: [TimelineSchema], required: true },
   programPicture: [String],
   programWebsite: String,
   favoriteStudents: [
