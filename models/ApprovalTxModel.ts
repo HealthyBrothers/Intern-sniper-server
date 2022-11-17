@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import ApprovalTx from "../classes/ApprovalTx";
+
+interface IApprovalTx extends ApprovalTx, mongoose.Document {}
 
 export const ApprovalTxSchema: mongoose.Schema = new mongoose.Schema({
   program: {
@@ -9,3 +12,10 @@ export const ApprovalTxSchema: mongoose.Schema = new mongoose.Schema({
   approval: { type: String, required: true },
   timestamp: { type: String, required: false },
 });
+
+const ApprovalTxModel = mongoose.model<IApprovalTx>(
+  "ApprovalTx",
+  ApprovalTxSchema
+);
+
+export default ApprovalTxModel;
