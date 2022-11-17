@@ -18,21 +18,26 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
   studyingYear: { type: Number, required: false },
   profilePicture: { type: String, required: false },
   university: { type: String, required: false },
-  interestedField: { type: [String], required: false },
+  interestedField: { type: [String], required: false, default: undefined },
   favoriteProgram: {
     type: [String],
     required: false,
+    default: undefined
   },
   mediaLink: [MediaLinkSchema],
   transactions: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "ApprovalTx" }],
     required: false,
+    default: undefined
   },
   companyName: { type: String, required: false },
-  issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
+  issuedProgram: { 
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
+    default: undefined
+  },
   phoneNumber: { type: String, required: false },
   location: LocationSchema,
-  validateStatus: { type: Boolean, default: false }
+  validateStatus: { type: Boolean, required: false }
 });
 
 const UserModel: mongoose.Model<IUserDocument> = mongoose.model<IUserDocument>(
