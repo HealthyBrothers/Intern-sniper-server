@@ -3,9 +3,6 @@ import jwt, { JwtPayload, Secret } from 'jsonwebtoken'
 import dotenv from 'dotenv';
 import { UserManager } from "../classes/UserManager";
 import User from '../classes/User'
-import { MediaLinkManager } from "../classes/MediaLinkManager";
-import MediaLink from "../classes/MediaLink";
-import Location from "../classes/Location";
 
 dotenv.config()
 
@@ -19,7 +16,6 @@ interface tokenizeUser {
 
 const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? ''
 const userManager = new UserManager()
-const mediaLinkManager = new MediaLinkManager()
 userManager.initialize()
 
 function generateAccessToken(user: tokenizeUser) {
@@ -83,8 +79,7 @@ export async function registerStudent(req: Request, res: Response) {
     return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
 
-  const mediaLinksParsed: MediaLink[] = mediaLinkManager.parseMediaLinks(mediaLinks)
-  userManager.createStudent({ ...req.body, mediaLink: mediaLinksParsed })
+  userManager.createStudent(req.body)
     .then(response => {
       res.sendStatus(201)
     })
@@ -113,12 +108,7 @@ export async function registerCompany(req: Request, res: Response) {
     return res.status(403).send('Password and Confirm Password doesn\'t match.')
   }
 
-  let locationParsed = null
-  if(location != null) { 
-    locationParsed = new Location(location?.country, location?.province)
-  }
-  const mediaLinksParsed: MediaLink[] = mediaLinkManager.parseMediaLinks(mediaLinks)
-  userManager.createCompany({ ...req.body, mediaLink: mediaLinksParsed, location: locationParsed })
+  userManager.createCompany(req.body)
     .then(response => {
       res.sendStatus(201)
     })

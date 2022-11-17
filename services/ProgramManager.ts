@@ -1,5 +1,5 @@
 import Program from "../classes/Program";
-import ProgramModel from "../models/ProgramModel";
+import ProgramModel from "../models/programModel";
 import Company from "../classes/Company";
 import Timeline from "../classes/Timeline";
 

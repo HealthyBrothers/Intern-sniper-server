@@ -4,8 +4,8 @@ import Company from "../classes/Company";
 import Director from "../classes/Director";
 import crypto from 'crypto'
 import User from "../classes/User";
-import { MediaLinkSchema } from '../models/MadiaLinkModel'
-import { LocationSchema } from '../models/LocationModel'
+import { MediaLinkSchema } from '../models/mediaLinkModel'
+import { LocationSchema } from '../models/locationModel'
 
 export interface IUserDocument extends User, Student, Company, Director, mongoose.Document {
   setPassword: (password: string) => void,
