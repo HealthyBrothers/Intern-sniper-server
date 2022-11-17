@@ -4,6 +4,8 @@ import Company from "../classes/Company";
 import Director from "../classes/Director";
 import crypto from 'crypto'
 import User from "../classes/User";
+import { MediaLinkSchema } from '../models/MadiaLinkModel'
+import { LocationSchema } from '../models/LocationModel'
 
 export interface IUserDocument extends User, Student, Company, Director, mongoose.Document {
   setPassword: (password: string) => void,
@@ -25,10 +27,7 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
     type: [String],
     required: false,
   },
-  mediaLink: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "MediaLink" }],
-    required: false,
-  },
+  mediaLink: [MediaLinkSchema],
   transactions: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "ApprovalTx" }],
     required: false,
@@ -36,12 +35,7 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
   companyName: { type: String, required: false },
   issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
   phoneNumber: { type: String, required: false },
-  location: [
-    {
-      type: { type: mongoose.Schema.Types.ObjectId, ref: "Location" },
-      required: false,
-    },
-  ],
+  location: LocationSchema
 });
 
 UserSchema.methods.setPassword = function(password: string): void {
