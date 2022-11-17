@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import dotenv from "dotenv";
 import Internship from "../classes/Internship";
 import Company from "../classes/Company";
+import { CustomRequest } from "./AuthController";
 import ProgramManager from "../services/ProgramManager";
+import Timeline from "../classes/Timeline";
 
 dotenv.config();
 
@@ -30,19 +32,33 @@ export async function getProgramByid(req: Request, res: Response) {
 
 export async function createProgram(req: Request, res: Response) {
   try {
-    // const aCompany = await new Company(
-    //   "company@gmail.com",
-    //   "A Company",
-    //   null,
-    //   "profileUrl",
-    //   "00000",
-    //   null,
-    //   null,
-    //   "password"
-    // );
+    const ownerOfProgram = (req as CustomRequest).user;
+
+    const {
+      programName,
+      timeline,
+      programPicture,
+      programWebsite,
+      favoriteStudents,
+      relatedField,
+      programType,
+      paid,
+    } = req.body;
+
+    const intern_program = new Internship(
+      programName,
+      ownerOfProgram as Company,
+      timeline,
+      programPicture,
+      programWebsite,
+      favoriteStudents,
+      relatedField,
+      programType,
+      paid
+    );
 
     const programManager = new ProgramManager();
-    const program = await programManager.createProgram(req.body);
+    const program = await programManager.createProgram(intern_program);
     res.json(program);
   } catch (err) {
     console.error(err);

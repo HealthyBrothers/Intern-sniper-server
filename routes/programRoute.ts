@@ -8,7 +8,7 @@ router.get("/", programController.getAllPrograms);
 
 router.get("/:id", programController.getProgramByid);
 
-router.get("/create", authenticateToken, programController.createProgram);
+router.post("/create", authenticateToken, programController.createProgram);
 
 router.get(
   "/createdummy",
