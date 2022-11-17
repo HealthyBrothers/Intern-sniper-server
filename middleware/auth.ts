@@ -1,15 +1,15 @@
 import { Request, Response, NextFunction } from "express";
 import dotenv from "dotenv";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import { UserManager } from "../services/UserManager";
+import { CustomRequest, tokenizeUser } from "../controllers/authController";
 
 dotenv.config();
-interface CustomRequest extends Request {
-  payload: string | JwtPayload;
-}
 
 const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? "";
+const userManager = new UserManager()
 
-export function authenticateToken(
+export async function authenticateToken(
   req: Request,
   res: Response,
   next: NextFunction
@@ -20,7 +20,10 @@ export function authenticateToken(
   if (token == null) return res.sendStatus(401);
 
   const payload = jwt.verify(token, ACCESS_TOKEN);
-  (req as CustomRequest).payload = payload;
+  const { email } = payload as tokenizeUser;
+  const user = await userManager.getUserByEmail(email);
+  if (user === null) return res.sendStatus(403);
+  (req as CustomRequest).user = user;
 
   next();
 }

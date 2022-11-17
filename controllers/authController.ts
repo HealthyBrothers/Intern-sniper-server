@@ -12,7 +12,7 @@ export interface CustomRequest extends Request {
   user: User;
 }
 
-interface tokenizeUser {
+export interface tokenizeUser {
   email: string;
 }
 
@@ -21,25 +21,6 @@ const userManager = new UserManager();
 
 function generateAccessToken(user: tokenizeUser) {
   return jwt.sign(user, ACCESS_TOKEN, { expiresIn: "1800s" });
-}
-
-export async function authenticateToken(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-
-  if (token == null) return res.sendStatus(401);
-
-  const payload = jwt.verify(token, ACCESS_TOKEN);
-  const { email } = payload as tokenizeUser;
-  const user = await userManager.getUserByEmail(email);
-  if (user === null) return res.sendStatus(403);
-  (req as CustomRequest).user = user;
-
-  next();
 }
 
 export async function login(req: Request, res: Response) {

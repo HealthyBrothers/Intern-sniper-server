@@ -36,7 +36,6 @@ export async function createProgram(req: Request, res: Response) {
       return res.status(403).send("You are not a company");
     }
     const ownerOfProgram = (req as CustomRequest).user;
-    console.log(ownerOfProgram);
 
     const {
       programName,
