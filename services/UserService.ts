@@ -12,15 +12,15 @@ export class UserService {
   }
 
   public async create(user: User): Promise<IUserDocument> {
-    const mediaLinks = user.mediaLink
-    const mediaLinkService = new MediaLinkService()
-    const mediaLinksDocument = await mediaLinkService.create(mediaLinks)
+    // const mediaLinks = user.mediaLink
+    // const mediaLinkService = new MediaLinkService()
+    // const mediaLinksDocument = await mediaLinkService.create(mediaLinks)
 
-    let locationDocument: ILocationDocument | null = null
-    if((user as Company).location != null)
-      locationDocument = await LocationModel.create((user as Company).location)
+    // let locationDocument: ILocationDocument | null = null
+    // if((user as Company).location != null)
+    //   locationDocument = await LocationModel.create((user as Company).location)
 
-    const newUser = new UserModel({ ...user, mediaLink: mediaLinksDocument, location: locationDocument })
+    const newUser = new UserModel(user)
     newUser.setPassword(user.password as string)
     return newUser.save()
   }
