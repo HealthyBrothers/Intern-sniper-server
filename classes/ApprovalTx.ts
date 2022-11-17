@@ -1,16 +1,9 @@
 class ApprovalTx {
-  transactionId: String;
   program: String;
   approval: String;
   timestamp: String;
 
-  constructor(
-    transactionId: String,
-    program: String,
-    approval: String,
-    timestamp: String
-  ) {
-    this.transactionId = transactionId;
+  constructor(program: String, approval: String, timestamp: String) {
     this.program = program;
     this.approval = approval;
     this.timestamp = timestamp;
