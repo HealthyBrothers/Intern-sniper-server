@@ -1,7 +1,7 @@
 import Company from "../classes/Company";
 import User from "../classes/User";
-import LocationModel, { ILocationDocument } from "../models/LocationModel";
-import UserModel, { IUserDocument } from "../models/UserModel";
+import LocationModel, { ILocationDocument } from "../models/locationModel";
+import UserModel, { IUserDocument } from "../models/userModel";
 import { MediaLinkService } from "./MediaLinkService";
 
 export class UserService {

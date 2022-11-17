@@ -1,4 +1,4 @@
-import { IUserDocument } from "../models/UserModel";
+import { IUserDocument } from "../models/userModel";
 import { UserService } from "../services/UserService";
 import Company from "./Company";
 import Director from "./Director";

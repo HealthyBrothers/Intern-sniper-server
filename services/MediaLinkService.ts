@@ -1,5 +1,5 @@
 import MediaLink from "../classes/MediaLink";
-import MediaLinkModel, { IMediaLinkDocument } from "../models/MadiaLinkModel";
+import MediaLinkModel, { IMediaLinkDocument } from "../models/mediaLinkModel";
 
 export class MediaLinkService {
   
