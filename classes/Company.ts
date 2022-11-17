@@ -7,6 +7,7 @@ class Company extends User {
   issuedProgram: String[] | null;
   phoneNumber: String;
   location: Location | null;
+  validateStatus: boolean;
 
   constructor(
     email: String,
@@ -17,7 +18,8 @@ class Company extends User {
     mediaLink: MediaLink[] | null,
     location: Location | null,
     password: String,
-    salt: String | null
+    salt: String | null,
+    validateStatus: boolean
   ) {
     super("Company", email, password, salt, mediaLink, profilePicture);
     this.companyName = companyName;
@@ -25,6 +27,11 @@ class Company extends User {
     this.profilePicture = profilePicture;
     this.phoneNumber = phoneNumber;
     this.location = location;
+    this.validateStatus = validateStatus;
+  }
+
+  public setValidateStatus(status: boolean) {
+    this.validateStatus = status;
   }
 
   public getName(): string {

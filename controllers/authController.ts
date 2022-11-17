@@ -116,7 +116,7 @@ export async function registerCompany(req: Request, res: Response) {
 
   const newCompany = new Company(email, companyName,
     null, 'profilePicture', phoneNumber,
-    mediaLinks, location, password, null)
+    mediaLinks, location, password, null, false)
 
   userManager.create(newCompany)
     .then(response => {

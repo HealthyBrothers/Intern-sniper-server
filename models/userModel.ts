@@ -31,7 +31,8 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
   companyName: { type: String, required: false },
   issuedProgram: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
   phoneNumber: { type: String, required: false },
-  location: LocationSchema
+  location: LocationSchema,
+  validateStatus: { type: Boolean, default: false }
 });
 
 const UserModel: mongoose.Model<IUserDocument> = mongoose.model<IUserDocument>(

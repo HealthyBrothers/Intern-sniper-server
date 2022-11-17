@@ -12,7 +12,7 @@ export class UserManager {
       lastName, studyingYear, profilePicture,
       university, interestedField, favoriteProgram,
       mediaLink, transactions, companyName, issuedProgram,
-      phoneNumber, location } = documentUser
+      phoneNumber, location, validateStatus } = documentUser
 
     switch (role) {
       case 'Student': {
@@ -24,7 +24,7 @@ export class UserManager {
       case 'Company': {
         const company = new Company(email, companyName,
           null, profilePicture, phoneNumber,
-          null, null, password, salt)
+          null, null, password, salt, validateStatus)
         return company
       }
       case 'Director': {
