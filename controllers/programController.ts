@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import dotenv from "dotenv";
 import Internship from "../classes/Internship";
 import Company from "../classes/Company";
-import { CustomRequest } from "./AuthController";
+import { CustomRequest } from "./authController";
 import ProgramManager from "../services/ProgramManager";
 import Timeline from "../classes/Timeline";
 
@@ -36,6 +36,7 @@ export async function createProgram(req: Request, res: Response) {
       return res.status(403).send("You are not a company");
     }
     const ownerOfProgram = (req as CustomRequest).user;
+    console.log(ownerOfProgram);
 
     const {
       programName,
