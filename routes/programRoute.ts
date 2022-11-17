@@ -3,8 +3,12 @@ import * as programController from "../controllers/programController";
 
 const router = express.Router();
 
-router.get("/", programController.getPrograms);
+router.get("/", programController.getAllPrograms);
+
+router.get("/:id", programController.getProgramByid);
 
 router.get("/create", programController.createProgram);
+
+router.get("/createdummy", programController.createDummyProgram);
 
 export default router;
