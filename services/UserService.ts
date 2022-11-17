@@ -5,10 +5,9 @@ import UserModel, { IUserDocument } from "../models/UserModel";
 import { MediaLinkService } from "./MediaLinkService";
 
 export class UserService {
-
   public async fetchAllUser(): Promise<IUserDocument[]> {
-    const users: IUserDocument[] = await UserModel.find({})
-    return users
+    const users: IUserDocument[] = await UserModel.find({});
+    return users;
   }
 
   public async create(user: User): Promise<IUserDocument> {
@@ -20,14 +19,22 @@ export class UserService {
     // if((user as Company).location != null)
     //   locationDocument = await LocationModel.create((user as Company).location)
 
-    const newUser = new UserModel(user)
-    newUser.setPassword(user.password as string)
-    return newUser.save()
+    const newUser = new UserModel(user);
+    newUser.setPassword(user.password as string);
+    return newUser.save();
   }
 
-  public async validatePassword(user: User, password: string): Promise<boolean> {
-    const documentUser = await UserModel.findOne({ email: user.email })
-    if(documentUser === null) return false
-    return documentUser?.validatePassword(password as string)
+  public async validatePassword(
+    user: User,
+    password: string
+  ): Promise<boolean> {
+    const documentUser = await UserModel.findOne({ email: user.email });
+    if (documentUser === null) return false;
+    return documentUser?.validatePassword(password as string);
+  }
+
+  public async findUserById(id: string): Promise<IUserDocument> {
+    const user = await UserModel.findById(id);
+    return <IUserDocument>user;
   }
 }
