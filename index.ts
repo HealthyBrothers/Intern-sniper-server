@@ -3,6 +3,7 @@ import authRoute from "./routes/AuthRoute";
 import programRoute from "./routes/programRoute";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import directorRoute from "./routes/directorRoute";
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ mongoose.connect(process.env.MONGO_URI ?? "");
 app.use("/auth", authRoute);
 
 app.use("/programs", programRoute);
+
+app.use("/director", directorRoute);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
