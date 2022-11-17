@@ -32,6 +32,9 @@ export async function getProgramByid(req: Request, res: Response) {
 
 export async function createProgram(req: Request, res: Response) {
   try {
+    if (!((req as CustomRequest).user instanceof Company)) {
+      return res.status(403).send("You are not a company");
+    }
     const ownerOfProgram = (req as CustomRequest).user;
 
     const {
