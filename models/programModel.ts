@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import Internship from "../classes/Internship";
-import { TimelineSchema } from "./TimelineSchema";
-import { CompanySchema } from "./CompanySchema";
+import { TimelineSchema } from "./timelineSchema";
+import { CompanySchema } from "./companySchema";
 
 interface IProgram extends Internship, mongoose.Document {}
 

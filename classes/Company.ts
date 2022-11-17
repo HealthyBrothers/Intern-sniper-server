@@ -18,9 +18,10 @@ class Company extends User {
     mediaLink: MediaLink[] | null,
     location: Location | null,
     password: String,
+    salt: String | null,
     validateStatus: boolean
   ) {
-    super("Company", email, password, mediaLink, profilePicture);
+    super("Company", email, password, salt, mediaLink, profilePicture);
     this.companyName = companyName;
     this.issuedProgram = issuedProgram;
     this.profilePicture = profilePicture;

@@ -18,10 +18,11 @@ class Student extends User {
     favoriteProgram: String[] | null,
     university: String,
     password: String,
+    salt: String | null,
     mediaLink: MediaLink[] | null,
     profilePicture: String | null
   ) {
-    super("Student", email, password, mediaLink, profilePicture);
+    super("Student", email, password, salt, mediaLink, profilePicture);
     this.firstName = firstName;
     this.lastName = lastName;
     this.studyingYear = studyingYear;

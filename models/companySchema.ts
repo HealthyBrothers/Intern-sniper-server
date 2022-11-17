@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import { LocationSchema } from "./LocationModel";
-import { MediaLinkSchema } from "./MediaLinkModel";
+import { LocationSchema } from "./locationModel";
+import { MediaLinkSchema } from "./mediaLinkModel";
 
 export const CompanySchema: mongoose.Schema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
