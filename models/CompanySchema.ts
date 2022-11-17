@@ -10,4 +10,5 @@ export const CompanySchema: mongoose.Schema = new mongoose.Schema({
   mediaLink: { type: [MediaLinkSchema], require: false },
   location: { type: LocationSchema, required: false },
   password: { type: String, required: true },
+  validateStatus: { type: Boolean, required: true },
 });
