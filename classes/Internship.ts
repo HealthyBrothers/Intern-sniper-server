@@ -15,7 +15,7 @@ class Internship extends Program {
     programWebsite: String,
     favoriteStudents: String[] | null,
     relatedField: String[],
-    programType: programType,
+    programType: String,
     paid: boolean
   ) {
     super(

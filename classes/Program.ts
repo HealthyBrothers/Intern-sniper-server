@@ -12,7 +12,7 @@ abstract class Program {
   programWebsite: String;
   favoriteStudents: String[] | null;
   relatedField: String[];
-  programType: programType;
+  programType: String;
 
   constructor(
     programId: String | null,
@@ -23,7 +23,7 @@ abstract class Program {
     programWebsite: String,
     favoriteStudents: String[] | null,
     relatedField: String[],
-    programType: programType
+    programType: String
   ) {
     this.programId = programId;
     this.programName = programName;

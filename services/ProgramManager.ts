@@ -1,7 +1,6 @@
 import Program from "../classes/Program";
 import Internship from "../classes/Internship";
 import ProgramModel, { IProgram } from "../models/programModel";
-import { programType as ProgramType } from "../classes/enum";
 
 class ProgramManager {
   public async getAllPrograms(): Promise<Program[]> {
@@ -31,8 +30,8 @@ class ProgramManager {
       programPicture, programWebsite, favoriteStudents, 
       relatedField, programType, paid } = documentProgram
 
-    switch (ProgramType[programType]) {
-      case 0: {
+    switch (programType) {
+      case 'INTERN': {
         const internship = new Internship(
           _id.toString(), programName, ownerOfProgram,
           timeline, programPicture, programWebsite,
@@ -54,8 +53,8 @@ class ProgramManager {
 
     const { programType } = programDocument
 
-    switch (ProgramType[programType]) {
-      case 0: {
+    switch (programType) {
+      case 'INTERN': {
         const internship = program as Internship
         programDocument.programName = internship.programName
         programDocument.timeline = internship.timeline
