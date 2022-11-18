@@ -4,7 +4,6 @@ import Internship from "../classes/Internship";
 import Company from "../classes/Company";
 import { CustomRequest } from "./authController";
 import ProgramManager from "../services/ProgramManager";
-import Timeline from "../classes/Timeline";
 import Student from "../classes/Student";
 
 dotenv.config();
