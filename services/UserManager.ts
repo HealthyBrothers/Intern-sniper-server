@@ -86,7 +86,7 @@ export class UserManager {
     return UserModel.create(user);
   }
 
-  public async getUserByEmail(email: string): Promise<User | null> {
+  public async getUserByEmail(email: String): Promise<User | null> {
     const user = await UserModel.findOne({ email });
     return this.parseUser(user);
   }
