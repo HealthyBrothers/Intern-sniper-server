@@ -82,10 +82,6 @@ export async function registerStudent(req: Request, res: Response) {
       res.sendStatus(201);
     })
     .catch((err) => {
-      console.error(err);
-      res.sendStatus(403);
-    })
-    .catch((err) => {
       res.sendStatus(403);
       console.error(err);
     });
@@ -125,9 +121,6 @@ export async function registerCompany(req: Request, res: Response) {
 
   userManager
     .create(newCompany)
-    .then((response) => {
-      res.sendStatus(201);
-    })
     .then((response) => {
       res.sendStatus(201);
     })
