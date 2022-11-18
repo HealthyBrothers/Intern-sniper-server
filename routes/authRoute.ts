@@ -1,5 +1,6 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
-import * as authController from '../controllers/AuthController';
+import * as authController from '../controllers/authController';
+import { authenticateToken } from "../middleware/auth";
 
 const router = express.Router()
 
@@ -16,12 +17,12 @@ router.post('/register/company',
 )
 
 router.post('/logout',
-  authController.authenticateToken,
+  authenticateToken,
   authController.logout
 )
 
 router.post('/me',
-  authController.authenticateToken,
+  authenticateToken,
   authController.me
 )
 

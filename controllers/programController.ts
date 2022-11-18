@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import dotenv from "dotenv";
 import Internship from "../classes/Internship";
 import Company from "../classes/Company";
-import { CustomRequest } from "./AuthController";
+import { CustomRequest } from "./authController";
 import ProgramManager from "../services/ProgramManager";
 import Timeline from "../classes/Timeline";
 
