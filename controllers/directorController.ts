@@ -1,13 +1,15 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
 import Company from "../classes/Company";
-import { CustomRequest } from "./AuthController";
+import { CustomRequest } from "./authController";
 import Director from "../classes/Director";
 import { UserService } from "../services/UserService";
 
 dotenv.config();
 
 export async function validateCompany(req: Request, res: Response) {
+  console.log((req as CustomRequest).user);
+
   try {
     if (!((req as CustomRequest).user instanceof Director)) {
       return res.status(403).send("You are not a director");
