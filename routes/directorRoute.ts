@@ -4,6 +4,10 @@ import { authenticateToken } from "../middleware/auth";
 
 const router = express.Router();
 
-router.get("/:id", authenticateToken, directorController.validateCompany);
+router.get(
+  "/validate/company:id",
+  authenticateToken,
+  directorController.validateCompany
+);
 
 export default router;
