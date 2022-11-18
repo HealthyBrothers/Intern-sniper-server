@@ -1,7 +1,9 @@
 import crypto from 'crypto'
 import MediaLink from "./MediaLink";
+import Program from './Program';
 
 abstract class User {
+  userId: String | null;
   mediaLink: MediaLink[] | null;
   role: String;
   email: String;
@@ -10,6 +12,7 @@ abstract class User {
   profilePicture: String | null;
 
   constructor(
+    userId: String | null,
     role: String,
     email: String,
     password: String,
@@ -17,6 +20,7 @@ abstract class User {
     mediaLink: MediaLink[] | null,
     profilePicture: String | null
   ) {
+    this.userId = userId;
     this.role = role;
     this.email = email;
     this.password = password;

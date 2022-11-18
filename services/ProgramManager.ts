@@ -1,6 +1,6 @@
 import Program from "../classes/Program";
 import Internship from "../classes/Internship";
-import ProgramModel from "../models/programModel";
+import ProgramModel, { IProgram } from "../models/programModel";
 import Company from "../classes/Company";
 import Timeline from "../classes/Timeline";
 
@@ -10,9 +10,9 @@ class ProgramManager {
     return programs;
   }
 
-  public async getProgramId(id: String): Promise<Program[]> {
-    const program = await ProgramModel.find();
-    return program;
+  public async getProgramId(id: String): Promise<Program | null> {
+    const program = await ProgramModel.findById(id);
+    return this.parseProgram(program);
   }
 
   public async createProgram(program: Internship): Promise<Program> {
@@ -23,6 +23,60 @@ class ProgramManager {
     } else {
       throw new Error("Error, program doesn't a compatible type");
     }
+  }
+
+  private parseProgram(documentProgram: IProgram | null): Internship | null {
+    if(documentProgram === null) return null
+
+    const { _id, programName, ownerOfProgram, timeline, 
+      programPicture, programWebsite, favoriteStudents, 
+      relatedField, programType, paid } = documentProgram
+
+    switch (programType) {
+      case 0: {
+        const internship = new Internship(
+          _id.toString(), programName, ownerOfProgram,
+          timeline, programPicture, programWebsite,
+          favoriteStudents, relatedField, programType,
+          paid  
+        )
+        return internship
+      }
+      default: {
+        return null
+      }
+    }
+  }
+
+  private async parseProgramDocument(program: Program): Promise<IProgram | null> {
+    const programDocument: IProgram | null  = await ProgramModel.findById(program.programId)
+
+    if(programDocument === null) return null
+
+    const { programType } = programDocument
+
+    switch (programType) {
+      case 0: {
+        const internship = program as Internship
+        programDocument.programName = internship.programName
+        programDocument.timeline = internship.timeline
+        programDocument.programPicture = internship.programPicture
+        programDocument.programWebsite = internship.programWebsite
+        programDocument.favoriteStudents = internship.favoriteStudents
+        programDocument.relatedField = internship.relatedField
+        programDocument.programType = internship.programType
+        programDocument.paid = internship.paid
+        return programDocument
+      }
+      default: {
+        return null
+      }
+    }
+  }
+
+  public async save(program: Program) {
+    const documentProgram = await this.parseProgramDocument(program)
+    documentProgram?.save()
   }
 }
 

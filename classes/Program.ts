@@ -1,8 +1,10 @@
 import Company from "./Company";
 import Timeline from "./Timeline";
 import { programType } from "./enum";
+import Student from "./Student";
 
 abstract class Program {
+  programId: String | null;
   programName: String;
   ownerOfProgram: Company;
   timeline: Timeline[];
@@ -13,6 +15,7 @@ abstract class Program {
   programType: programType;
 
   constructor(
+    programId: String | null,
     programName: String,
     ownerOfProgram: Company,
     timeline: Timeline[],
@@ -22,6 +25,7 @@ abstract class Program {
     relatedField: String[],
     programType: programType
   ) {
+    programId = this.programId;
     this.programName = programName;
     this.ownerOfProgram = ownerOfProgram;
     this.timeline = timeline;
@@ -36,6 +40,10 @@ abstract class Program {
     console.log(
       `This program is ${this.programName}, it is ${this.programType}`
     );
+  }
+
+  public addFavoriteStudent(student: Student) {
+    if(student.userId !== null) this.favoriteStudents?.push(student.userId)
   }
 }
 

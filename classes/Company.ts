@@ -10,6 +10,7 @@ class Company extends User {
   validateStatus: boolean;
 
   constructor(
+    userId: String | null,
     email: String,
     companyName: String,
     issuedProgram: String[] | null,
@@ -21,7 +22,7 @@ class Company extends User {
     salt: String | null,
     validateStatus: boolean
   ) {
-    super("Company", email, password, salt, mediaLink, profilePicture);
+    super(userId, "Company", email, password, salt, mediaLink, profilePicture);
     this.companyName = companyName;
     this.issuedProgram = issuedProgram;
     this.profilePicture = profilePicture;
