@@ -17,20 +17,20 @@ export class UserManager {
     switch (role) {
       case 'Student': {
         const student = new Student(_id.toString(), email, firstName, lastName,
-          studyingYear, interestedField, null,
-          university, password, salt, null, profilePicture)
+          studyingYear, interestedField, favoriteProgram,
+          university, password, salt, mediaLink, profilePicture)
         return student
       }
       case 'Company': {
         const company = new Company(_id.toString(), email, companyName,
-          null, profilePicture, phoneNumber,
-          null, null, password, salt, validateStatus)
+          issuedProgram, profilePicture, phoneNumber,
+          mediaLink, location, password, salt, validateStatus)
         return company
       }
       case 'Director': {
         const director = new Director(_id.toString(), email, firstName,
-          lastName, null, password,
-          salt, null, profilePicture)
+          lastName, transactions, password,
+          salt, mediaLink, profilePicture)
         return director
       }
       default: {
@@ -53,6 +53,7 @@ export class UserManager {
         documentUser.lastName = student.lastName
         documentUser.studyingYear = student.studyingYear
         documentUser.interestedField = student.interestedField
+        documentUser.favoriteProgram = student.favoriteProgram
         documentUser.university = student.university
         documentUser.mediaLink = student.mediaLink
         documentUser.profilePicture = student.profilePicture

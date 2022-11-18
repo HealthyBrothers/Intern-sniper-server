@@ -25,7 +25,7 @@ abstract class Program {
     relatedField: String[],
     programType: programType
   ) {
-    programId = this.programId;
+    this.programId = programId;
     this.programName = programName;
     this.ownerOfProgram = ownerOfProgram;
     this.timeline = timeline;
@@ -43,7 +43,11 @@ abstract class Program {
   }
 
   public addFavoriteStudent(student: Student) {
-    if(student.userId !== null) this.favoriteStudents?.push(student.userId)
+    if(student.userId !== null) {
+      if (this.favoriteStudents?.includes(student.userId)) return
+
+      this.favoriteStudents?.push(student.userId)
+    }
   }
 }
 

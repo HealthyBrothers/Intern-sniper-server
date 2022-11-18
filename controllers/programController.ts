@@ -5,6 +5,7 @@ import Company from "../classes/Company";
 import { CustomRequest } from "./authController";
 import ProgramManager from "../services/ProgramManager";
 import Student from "../classes/Student";
+import { UserManager } from "../services/UserManager";
 
 dotenv.config();
 
@@ -79,14 +80,17 @@ export async function favoriteProgram(req: Request, res: Response) {
 
     const { id } = req.params
 
+    const userManager = new UserManager()
     const programManager = new ProgramManager()
     const program = await programManager.getProgramId(id)
 
-    if(program === null) res.status(403).send('Program not found')
-    else student.addFavoriteProgram(program)
-
-    program?.addFavoriteStudent(student)
-
+    if(program === null) return res.status(403).send('Program not found')
+    else {
+      student.addFavoriteProgram(program)
+      program.addFavoriteStudent(student)
+      userManager.save(student)
+      programManager.save(program)
+    }
     res.sendStatus(200)
   }
   catch(err) {

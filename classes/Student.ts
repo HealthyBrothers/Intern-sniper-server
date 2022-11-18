@@ -56,7 +56,11 @@ class Student extends User {
   }
 
   public addFavoriteProgram(program: Program) {
-    if(program.programId !== null) this.favoriteProgram?.push(program.programId)
+    if(program.programId !== null) { 
+      if(this.favoriteProgram?.includes(program.programId)) return
+
+      this.favoriteProgram?.push(program.programId)
+    }
   }
 }
 

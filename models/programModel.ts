@@ -12,7 +12,7 @@ export const ProgramSchema: mongoose.Schema = new mongoose.Schema({
   programPicture: [String],
   programWebsite: String,
   favoriteStudents: [
-    [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
+    { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
   ],
   relatedField: [String],
   programType: String,

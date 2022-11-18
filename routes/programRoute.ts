@@ -10,6 +10,8 @@ router.get("/:id", programController.getProgramByid);
 
 router.post("/create", authenticateToken, programController.createProgram);
 
+router.post("/favorite/:id", authenticateToken, programController.favoriteProgram);
+
 router.get(
   "/createdummy",
   authenticateToken,

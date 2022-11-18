@@ -69,7 +69,7 @@ export async function registerStudent(req: Request, res: Response) {
     lastName,
     studyingYear,
     interestedField,
-    null,
+    [],
     university,
     password,
     null,
@@ -115,7 +115,7 @@ export async function registerCompany(req: Request, res: Response) {
     null,
     email,
     companyName,
-    null,
+    [],
     "profilePicture",
     phoneNumber,
     mediaLinks,
@@ -127,9 +127,6 @@ export async function registerCompany(req: Request, res: Response) {
 
   userManager
     .create(newCompany)
-    .then((response) => {
-      res.sendStatus(201);
-    })
     .then((response) => {
       res.sendStatus(201);
     })

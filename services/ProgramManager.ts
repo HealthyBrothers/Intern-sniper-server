@@ -1,8 +1,7 @@
 import Program from "../classes/Program";
 import Internship from "../classes/Internship";
 import ProgramModel, { IProgram } from "../models/programModel";
-import Company from "../classes/Company";
-import Timeline from "../classes/Timeline";
+import { programType as ProgramType } from "../classes/enum";
 
 class ProgramManager {
   public async getAllPrograms(): Promise<Program[]> {
@@ -10,7 +9,7 @@ class ProgramManager {
     return programs;
   }
 
-  public async getProgramId(id: String): Promise<Program | null> {
+  public async getProgramId(id: string): Promise<Program | null> {
     const program = await ProgramModel.findById(id);
     return this.parseProgram(program);
   }
@@ -32,7 +31,7 @@ class ProgramManager {
       programPicture, programWebsite, favoriteStudents, 
       relatedField, programType, paid } = documentProgram
 
-    switch (programType) {
+    switch (ProgramType[programType]) {
       case 0: {
         const internship = new Internship(
           _id.toString(), programName, ownerOfProgram,
@@ -55,7 +54,7 @@ class ProgramManager {
 
     const { programType } = programDocument
 
-    switch (programType) {
+    switch (ProgramType[programType]) {
       case 0: {
         const internship = program as Internship
         programDocument.programName = internship.programName
