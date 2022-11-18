@@ -4,8 +4,8 @@ import { authenticateToken } from "../middleware/auth";
 
 const router = express.Router();
 
-router.get(
-  "/validate/company:id",
+router.post(
+  "/validate/company",
   authenticateToken,
   directorController.validateCompany
 );
