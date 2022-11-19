@@ -47,6 +47,7 @@ export async function updateProfile(req: Request, res: Response) {
 
     const company = user as Company;
     const targetCompany = new Company(
+      company.userId,
       company.email,
       company.companyName,
       company.issuedProgram,

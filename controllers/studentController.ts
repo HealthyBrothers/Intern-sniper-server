@@ -47,6 +47,7 @@ export async function updateProfile(req: Request, res: Response) {
     }
     const student = user as Student;
     const targetStudent = new Student(
+      student.userId,
       student.email,
       student.firstName,
       student.lastName,

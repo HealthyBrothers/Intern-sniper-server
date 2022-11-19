@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
+import Director from "../classes/Director";
 import Company from "../classes/Company";
 import { CustomRequest } from "./authController";
 import { UserManager } from "../services/UserManager";
+import ApprovalTx from "../classes/ApprovalTx";
 
 dotenv.config();
 
@@ -11,10 +13,26 @@ export async function validateCompany(req: Request, res: Response) {
     if (!((req as CustomRequest).user.role === "Director")) {
       return res.status(403).send("You are not a director");
     }
+    const { directorId, companyId, validateStatus, timestamp } = req.body;
     const userManager = new UserManager();
-    const { id, validateStatus, timestamp } = req.body;
-    const company = await userManager.findUserById(id);
+    const directorData = await userManager.findUserById(directorId);
+
+    const director = new Director(
+      directorData.userId,
+      directorData.email,
+      directorData.firstName,
+      directorData.lastName,
+      directorData.transactions,
+      directorData.password,
+      directorData.salt,
+      directorData.mediaLink,
+      directorData.profilePicture
+    );
+
+    const company = await userManager.findUserById(companyId);
+
     const targetCompany = new Company(
+      company.userId,
       company.email,
       company.companyName,
       company.issuedProgram,
@@ -26,10 +44,18 @@ export async function validateCompany(req: Request, res: Response) {
       company.salt,
       company.validateStatus
     );
-    targetCompany.setValidateStatus(validateStatus);
-    userManager.updateUserById(id, targetCompany);
 
-    res.json(targetCompany);
+    targetCompany.setValidateStatus(validateStatus);
+    userManager.updateUserById(companyId, targetCompany);
+
+    const newTransaction = new ApprovalTx(companyId, validateStatus, timestamp);
+
+    console.log("newTransaction", newTransaction);
+
+    director.addTransaction(newTransaction);
+    userManager.updateUserById(directorId, director);
+
+    res.json(director);
   } catch (err) {
     console.error(err);
     res.status(403);

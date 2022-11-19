@@ -123,7 +123,10 @@ export class UserManager {
     );
   }
 
-  public updateUserById(id: String, user: User | Company | Student): void {
+  public updateUserById(
+    id: String,
+    user: User | Company | Student | Director
+  ): void {
     UserModel.findByIdAndUpdate(id, { ...user }, (err, docs) => {
       if (err) {
         console.log(err);
