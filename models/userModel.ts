@@ -29,7 +29,7 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
     required: false,
     default: undefined,
   },
-  mediaLink: [MediaLinkSchema],
+  mediaLink: { type: [MediaLinkSchema], required: false, default: null },
   transactions: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "ApprovalTx" }],
     required: false,
