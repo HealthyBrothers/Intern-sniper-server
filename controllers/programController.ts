@@ -31,6 +31,33 @@ export async function getProgramByid(req: Request, res: Response) {
   }
 }
 
+export async function favoriteProgram(req: Request, res: Response) {
+  try {
+    const student = (req as CustomRequest).user as Student;
+    if (!(student instanceof Student)) {
+      return res.status(403).send("You are not Student");
+    }
+
+    const { id } = req.params;
+
+    const userManager = new UserManager();
+    const programManager = new ProgramManager();
+    const program = await programManager.getProgramId(id);
+
+    if (program === null) return res.status(403).send("Program not found");
+    else {
+      student.addFavoriteProgram(program);
+      program.addFavoriteStudent(student);
+      userManager.save(student);
+      programManager.save(program);
+    }
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(403);
+  }
+}
+
 export async function createProgram(req: Request, res: Response) {
   try {
     if (!((req as CustomRequest).user instanceof Company)) {
@@ -38,6 +65,7 @@ export async function createProgram(req: Request, res: Response) {
     }
     const {
       id,
+      programId,
       programName,
       timeline,
       programPicture,
@@ -68,7 +96,7 @@ export async function createProgram(req: Request, res: Response) {
     console.log("theOwner5", targetCompany);
 
     const intern_program = new Internship(
-      null,
+      programId,
       programName,
       targetCompany,
       timeline,
@@ -81,42 +109,11 @@ export async function createProgram(req: Request, res: Response) {
     );
     const programManager = new ProgramManager();
     const program = await programManager.create(intern_program);
-  } catch (err) {
-    console.error(err);
-    res.status(403);
-  }
-}
 
-export async function favoriteProgram(req: Request, res: Response) {
-  try {
-    const student = (req as CustomRequest).user as Student;
-    if (!(student instanceof Student)) {
-      return res.status(403).send("You are not Student");
-    }
+    targetCompany.addProgram(program._id.toString());
+    userManager.updateUserById(id, targetCompany);
 
-    const { id } = req.params;
-
-    const userManager = new UserManager();
-    const programManager = new ProgramManager();
-    const program = await programManager.getProgramId(id);
-
-    if (program === null) return res.status(403).send("Program not found");
-    else {
-      student.addFavoriteProgram(program);
-      program.addFavoriteStudent(student);
-      userManager.save(student);
-      programManager.save(program);
-    }
-    res.sendStatus(200);
-  } catch (err) {
-    console.log(err);
-    res.sendStatus(403);
-  }
-}
-
-export async function createDummyProgram(req: Request, res: Response) {
-  try {
-    res.send("Dummy program created");
+    res.json(program);
   } catch (err) {
     console.error(err);
     res.status(403);
