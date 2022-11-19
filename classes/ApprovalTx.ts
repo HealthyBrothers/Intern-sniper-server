@@ -1,10 +1,15 @@
+import mongoose, { Mongoose } from "mongoose";
 import Company from "./Company";
 class ApprovalTx {
-  company: Company;
+  company: mongoose.ObjectId;
   approval: Boolean;
   timestamp: String;
 
-  constructor(company: Company, approval: Boolean, timestamp: String) {
+  constructor(
+    company: mongoose.ObjectId,
+    approval: Boolean,
+    timestamp: String
+  ) {
     this.company = company;
     this.approval = approval;
     this.timestamp = timestamp;
