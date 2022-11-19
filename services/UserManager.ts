@@ -3,6 +3,7 @@ import Company from "../classes/Company";
 import Director from "../classes/Director";
 import Student from "../classes/Student";
 import User from "../classes/User";
+import mongoose from "mongoose";
 
 export class UserManager {
   private parseUser(documentUser: IUserDocument | null): User | null {
@@ -119,18 +120,31 @@ export class UserManager {
     );
   }
 
-  public updateUserById(id: String, user: User): void {
-    const company = user as Company;
-    UserModel.findByIdAndUpdate(
-      id,
-      { validateStatus: company.validateStatus },
-      (err, docs) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Updated User : ", docs);
-        }
+  public updateUserById(id: String, user: User | Company | Student): void {
+    UserModel.findByIdAndUpdate(id, { ...user }, (err, docs) => {
+      if (err) {
+        console.log(err);
+      } else if (docs) {
+        console.log("Updated User : ", docs);
       }
-    );
+    });
   }
+
+  // public async updateUserById(
+  //   id: String,
+  //   user: User | Company | Student
+  // ): Promise<mongoose.Types.ObjectId> {
+  //   let _id;
+  //   UserModel.findByIdAndUpdate(id, { ...user }, (err, docs) => {
+  //     if (err) {
+  //       console.log(err);
+  //     } else if (docs) {
+  //       console.log("Updated User : ", docs);
+  //       _id = docs._id as mongoose.Types.ObjectId;
+  //       console.log(_id);
+  //     }
+  //   });
+
+  //   return <mongoose.Types.ObjectId>_id;
+  // }
 }
