@@ -53,14 +53,12 @@ class Company extends User {
     this.location = location;
   }
 
-  public addProgram(newProgram: String) {
+  public addProgram(newProgramId: String) {
     if (this.issuedProgram == null) {
       this.issuedProgram = [];
     }
-    console.log("oldProgram", this.issuedProgram);
-    console.log("newProgram", newProgram);
 
-    this.issuedProgram.push(newProgram);
+    this.issuedProgram.push(newProgramId);
   }
 }
 

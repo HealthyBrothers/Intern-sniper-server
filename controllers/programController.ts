@@ -76,13 +76,11 @@ export async function createProgram(req: Request, res: Response) {
       programType,
       paid
     );
-
-    targetCompany.addProgram("6378cf9747fdd3d008f4f603");
-    console.log("updatedCompany", targetCompany);
-    userManager.updateUserById(id, targetCompany);
-
     const programManager = new ProgramManager();
-    const program = await programManager.createProgram(intern_program);
+    const program = await programManager.create(intern_program);
+
+    targetCompany.addProgram(program._id.toString());
+    userManager.updateUserById(id, targetCompany);
 
     res.json(program);
   } catch (err) {

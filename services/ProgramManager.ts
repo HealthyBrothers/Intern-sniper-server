@@ -1,8 +1,10 @@
 import Program from "../classes/Program";
 import Internship from "../classes/Internship";
 import ProgramModel from "../models/programModel";
+import { IProgram } from "../models/programModel";
 import Company from "../classes/Company";
 import Timeline from "../classes/Timeline";
+import mongoose from "mongoose";
 
 class ProgramManager {
   public async getAllPrograms(): Promise<Program[]> {
@@ -19,12 +21,14 @@ class ProgramManager {
     if (program instanceof Internship) {
       const newProgram = await ProgramModel.create(program);
       newProgram.save();
-      console.log("newProgram", newProgram);
-
       return newProgram;
     } else {
       throw new Error("Error, program doesn't a compatible type");
     }
+  }
+
+  public async create(program: Internship): Promise<IProgram> {
+    return ProgramModel.create(program);
   }
 }
 
