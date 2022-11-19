@@ -6,4 +6,10 @@ const router = express.Router();
 
 router.get("/profile", authenticateToken, studentController.getProfile);
 
+router.post(
+  "/profile/update",
+  authenticateToken,
+  studentController.updateProfile
+);
+
 export default router;
