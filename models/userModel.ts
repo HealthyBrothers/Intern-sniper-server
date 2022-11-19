@@ -5,6 +5,7 @@ import Director from "../classes/Director";
 import User from "../classes/User";
 import { MediaLinkSchema } from "../models/mediaLinkModel";
 import { LocationSchema } from "../models/locationModel";
+import { ApprovalTxSchema } from "./approvalTxModel";
 
 export interface IUserDocument
   extends User,
@@ -29,12 +30,8 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
     required: false,
     default: undefined,
   },
-  mediaLink: [MediaLinkSchema],
-  transactions: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "ApprovalTx" }],
-    required: false,
-    default: undefined,
-  },
+  mediaLink: { type: [MediaLinkSchema], required: false, default: null },
+  transactions: { type: [ApprovalTxSchema], required: false, default: null },
   companyName: { type: String, required: false },
   issuedProgram: {
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],

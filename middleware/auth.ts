@@ -7,7 +7,7 @@ import { CustomRequest, tokenizeUser } from "../controllers/authController";
 dotenv.config();
 
 const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? "";
-const userManager = new UserManager()
+const userManager = new UserManager();
 
 export async function authenticateToken(
   req: Request,

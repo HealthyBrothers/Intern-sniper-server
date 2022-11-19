@@ -4,9 +4,9 @@ import ApprovalTx from "../classes/ApprovalTx";
 interface IApprovalTx extends ApprovalTx, mongoose.Document {}
 
 export const ApprovalTxSchema: mongoose.Schema = new mongoose.Schema({
-  program: {
+  company: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Program",
+    ref: "Company",
     required: true,
   },
   approval: { type: String, required: true },

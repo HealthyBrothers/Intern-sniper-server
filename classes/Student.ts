@@ -31,7 +31,7 @@ class Student extends User {
     this.university = university;
   }
 
-  public getName(): string {
+  public getName(): String {
     return this.firstName.toString() + " " + this.lastName.toString();
   }
 
@@ -41,16 +41,16 @@ class Student extends User {
     studyingYear: number,
     interestedField: String[],
     university: String,
-    mediaLink: MediaLink[] | null,
-    profilePicture: String | null
+    profilePicture: String | null,
+    mediaLink: MediaLink[] | null
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.studyingYear = studyingYear;
     this.interestedField = interestedField;
     this.university = university;
-    this.mediaLink = mediaLink;
     this.profilePicture = profilePicture;
+    this.mediaLink = mediaLink;
   }
 
   public addFavoriteProgram(favoriteProgram: String[] | null) {
