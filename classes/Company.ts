@@ -1,5 +1,6 @@
 import Location from "./Location";
 import User from "./User";
+import ApprovalTx from "./ApprovalTx";
 import MediaLink from "./MediaLink";
 
 class Company extends User {
@@ -34,7 +35,7 @@ class Company extends User {
     this.validateStatus = status;
   }
 
-  public getName(): string {
+  public getName(): String {
     return this.companyName.toString();
   }
 

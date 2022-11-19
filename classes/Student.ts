@@ -31,7 +31,7 @@ class Student extends User {
     this.university = university;
   }
 
-  public getName(): string {
+  public getName(): String {
     return this.firstName.toString() + " " + this.lastName.toString();
   }
 

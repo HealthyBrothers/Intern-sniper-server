@@ -1,4 +1,4 @@
-import crypto from 'crypto'
+import crypto from "crypto";
 import MediaLink from "./MediaLink";
 
 abstract class User {
@@ -23,25 +23,28 @@ abstract class User {
     this.salt = salt;
     this.mediaLink = mediaLink;
     this.profilePicture = profilePicture;
-    if(this.salt == null) this.hashPassword(password as string)
+    if (this.salt == null) this.hashPassword(password as string);
   }
 
-  abstract getName(): string;
+  abstract getName(): String;
 
   private hashPassword(password: string): void {
-    this.salt = crypto.randomBytes(16).toString('hex');
-    this.password = crypto.pbkdf2Sync(password, this.salt as string, 1000, 64, 'sha512').toString('hex');
+    this.salt = crypto.randomBytes(16).toString("hex");
+    this.password = crypto
+      .pbkdf2Sync(password, this.salt as string, 1000, 64, "sha512")
+      .toString("hex");
   }
 
   public vaildatePassword(password: string): boolean {
-    const hash_password = crypto.pbkdf2Sync(password, this.salt as string, 1000, 64, 'sha512').toString('hex');
+    const hash_password = crypto
+      .pbkdf2Sync(password, this.salt as string, 1000, 64, "sha512")
+      .toString("hex");
     return this.password === hash_password;
   }
 
   public introduceUser() {
     console.log(`my role: ${this.role}, and my email ${this.email}`);
   }
-
 }
 
 export default User;
