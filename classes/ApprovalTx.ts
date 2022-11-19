@@ -1,10 +1,11 @@
+import Company from "./Company";
 class ApprovalTx {
-  program: String;
-  approval: String;
+  company: Company;
+  approval: Boolean;
   timestamp: String;
 
-  constructor(program: String, approval: String, timestamp: String) {
-    this.program = program;
+  constructor(company: Company, approval: Boolean, timestamp: String) {
+    this.company = company;
     this.approval = approval;
     this.timestamp = timestamp;
   }
