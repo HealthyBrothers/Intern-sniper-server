@@ -85,6 +85,53 @@ export class UserManager {
     }
   }
 
+  public create(user: User): Promise<IUserDocument> {
+    console.log(user);
+    return UserModel.create(user);
+  }
+
+  public async getUserByEmail(email: String): Promise<User | null> {
+    const user = await UserModel.findOne({ email });
+    return this.parseUser(user);
+  }
+
+  public async findUserById(id: String): Promise<IUserDocument> {
+    const user = await UserModel.findById(id);
+    return <IUserDocument>user;
+  }
+
+  public async updateStudentProfileById(id: String, student: Student) {
+    UserModel.findByIdAndUpdate(
+      id,
+      {
+        firstName: student.firstName,
+        lastName: student.lastName,
+        studyingYear: student.studyingYear,
+        university: student.university,
+        interestedField: student.interestedField,
+        favoriteProgram: student.favoriteProgram,
+        profilePicture: student.profilePicture,
+        mediaLink: student.mediaLink,
+      },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Updated User : ", docs);
+        }
+      }
+    );
+  }
+
+  public updateUserById(id: String, user: User | Company | Student): void {
+    UserModel.findByIdAndUpdate(id, { ...user }, (err, docs) => {
+      if (err) {
+        console.log(err);
+      } else if (docs) {
+        console.log("Updated User : ", docs);
+      }
+    });
+  }
   private async parseUserDocument(user: User): Promise<IUserDocument | null> {
     let documentUser: IUserDocument | null = await UserModel.findById(
       user.userId
@@ -133,51 +180,8 @@ export class UserManager {
     }
   }
 
-  public create(user: User): Promise<IUserDocument> {
-    console.log(user);
-    return UserModel.create(user);
-  }
-
-  public async getUserByEmail(email: String): Promise<User | null> {
-    const user = await UserModel.findOne({ email });
-    return this.parseUser(user);
-  }
-
-  public async findUserById(id: String): Promise<IUserDocument> {
-    const user = await UserModel.findById(id);
-    return <IUserDocument>user;
-  }
-
-  public async updateStudentProfileById(id: String, student: Student) {
-    UserModel.findByIdAndUpdate(
-      id,
-      {
-        firstName: student.firstName,
-        lastName: student.lastName,
-        studyingYear: student.studyingYear,
-        university: student.university,
-        interestedField: student.interestedField,
-        favoriteProgram: student.favoriteProgram,
-        profilePicture: student.profilePicture,
-        mediaLink: student.mediaLink,
-      },
-      (err, docs) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log("Updated User : ", docs);
-        }
-      }
-    );
-  }
-
-  public updateUserById(id: String, user: User | Company | Student): void {
-    UserModel.findByIdAndUpdate(id, { ...user }, (err, docs) => {
-      if (err) {
-        console.log(err);
-      } else if (docs) {
-        console.log("Updated User : ", docs);
-      }
-    });
+  public async save(user: User) {
+    const documentUser = await this.parseUserDocument(user);
+    documentUser?.save();
   }
 }
