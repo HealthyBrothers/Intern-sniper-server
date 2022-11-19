@@ -7,6 +7,7 @@ class Internship extends Program {
   paid: boolean;
 
   constructor(
+    programId: String | null,
     programName: String,
     ownerOfProgram: Company,
     timeline: Timeline[],
@@ -14,10 +15,11 @@ class Internship extends Program {
     programWebsite: String,
     favoriteStudents: String[] | null,
     relatedField: String[],
-    programType: programType,
+    programType: String,
     paid: boolean
   ) {
     super(
+      programId,
       programName,
       ownerOfProgram,
       timeline,

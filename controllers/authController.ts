@@ -63,12 +63,13 @@ export async function registerStudent(req: Request, res: Response) {
   }
 
   const newStudent = new Student(
+    null,
     email,
     firstName,
     lastName,
     studyingYear,
     interestedField,
-    null,
+    [],
     university,
     password,
     null,
@@ -107,9 +108,10 @@ export async function registerCompany(req: Request, res: Response) {
   }
 
   const newCompany = new Company(
+    null,
     email,
     companyName,
-    null,
+    [],
     "profilePicture",
     phoneNumber,
     mediaLinks,
@@ -133,7 +135,7 @@ export function logout(req: Request, res: Response) {
   //
 }
 
-export function me(req: Request, res: Response) {
+export async function me(req: Request, res: Response) {
   const user = (req as CustomRequest).user;
 
   res.json({

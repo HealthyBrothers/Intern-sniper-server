@@ -8,6 +8,7 @@ class Director extends User {
   transactions: ApprovalTx[] | null;
 
   constructor(
+    userId: String | null,
     email: String,
     firstname: String,
     lastname: String,
@@ -17,7 +18,7 @@ class Director extends User {
     mediaLink: MediaLink[] | null,
     profilePicture: String | null
   ) {
-    super("Director", email, password, salt, mediaLink, profilePicture);
+    super(userId, "Director", email, password, salt, mediaLink, profilePicture);
     this.firstName = firstname;
     this.lastName = lastname;
     this.transactions = transactions;

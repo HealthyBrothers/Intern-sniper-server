@@ -3,7 +3,7 @@ import Internship from "../classes/Internship";
 import { TimelineSchema } from "./timelineSchema";
 import { CompanySchema } from "./companySchema";
 
-interface IProgram extends Internship, mongoose.Document {}
+export interface IProgram extends Internship, mongoose.Document {}
 
 export const ProgramSchema: mongoose.Schema = new mongoose.Schema({
   programName: String,
@@ -12,7 +12,7 @@ export const ProgramSchema: mongoose.Schema = new mongoose.Schema({
   programPicture: [String],
   programWebsite: String,
   favoriteStudents: [
-    [{ type: mongoose.Schema.Types.ObjectId, ref: "Student" }],
+    { type: mongoose.Schema.Types.ObjectId, ref: "Student" },
   ],
   relatedField: [String],
   programType: String,
