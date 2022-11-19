@@ -91,9 +91,32 @@ export class UserManager {
     return this.parseUser(user);
   }
 
-  public async findUserById(id: string): Promise<IUserDocument> {
+  public async findUserById(id: String): Promise<IUserDocument> {
     const user = await UserModel.findById(id);
     return <IUserDocument>user;
+  }
+
+  public async updateStudentProfileById(id: String, student: Student) {
+    UserModel.findByIdAndUpdate(
+      id,
+      {
+        firstName: student.firstName,
+        lastName: student.lastName,
+        studyingYear: student.studyingYear,
+        university: student.university,
+        interestedField: student.interestedField,
+        favoriteProgram: student.favoriteProgram,
+        profilePicture: student.profilePicture,
+        mediaLink: student.mediaLink,
+      },
+      (err, docs) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log("Updated User : ", docs);
+        }
+      }
+    );
   }
 
   public updateUserById(id: String, user: User): void {
