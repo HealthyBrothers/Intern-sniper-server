@@ -22,9 +22,17 @@ class Director extends User {
     this.firstName = firstname;
     this.lastName = lastname;
     this.transactions = transactions;
-  } 
-  public getName(): string {
-    return this.firstName.toString() + ' ' + this.lastName.toString()
+  }
+
+  public getName(): String {
+    return this.firstName.toString() + " " + this.lastName.toString();
+  }
+
+  public addTransaction(transaction: ApprovalTx) {
+    if (this.transactions == null) {
+      this.transactions = [];
+    }
+    this.transactions.push(transaction);
   }
 }
 

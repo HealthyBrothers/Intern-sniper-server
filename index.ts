@@ -1,8 +1,11 @@
 import express, { Express, Request, Response } from "express";
-import authRoute from "./routes/authRoute";
 import programRoute from "./routes/programRoute";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import authRoute from "./routes/authRoute";
+import directorRoute from "./routes/directorRoute";
+import studentRoute from "./routes/studentRoute";
+import companyRoute from "./routes/companyRoute";
 
 dotenv.config();
 
@@ -16,8 +19,10 @@ mongoose.connect(process.env.MONGO_URI ?? "");
 
 // app routes
 app.use("/auth", authRoute);
-
 app.use("/programs", programRoute);
+app.use("/director", directorRoute);
+app.use("/student", studentRoute);
+app.use("/company", companyRoute);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);

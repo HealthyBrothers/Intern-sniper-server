@@ -36,9 +36,8 @@ export async function createProgram(req: Request, res: Response) {
     if (!((req as CustomRequest).user instanceof Company)) {
       return res.status(403).send("You are not a company");
     }
-    const ownerOfProgram = (req as CustomRequest).user;
-
     const {
+      id,
       programName,
       timeline,
       programPicture,
@@ -49,10 +48,29 @@ export async function createProgram(req: Request, res: Response) {
       paid,
     } = req.body;
 
+    const userManager = new UserManager();
+    const companyData = (await userManager.findUserById(id)) as Company;
+    console.log("companyData", companyData);
+
+    const targetCompany = new Company(
+      companyData.userId,
+      companyData.email,
+      companyData.companyName,
+      companyData.issuedProgram,
+      companyData.profilePicture,
+      companyData.phoneNumber,
+      companyData.mediaLink,
+      companyData.location,
+      companyData.password,
+      companyData.salt,
+      companyData.validateStatus
+    );
+    console.log("theOwner5", targetCompany);
+
     const intern_program = new Internship(
       null,
       programName,
-      ownerOfProgram as Company,
+      targetCompany,
       timeline,
       programPicture,
       programWebsite,
@@ -61,10 +79,8 @@ export async function createProgram(req: Request, res: Response) {
       programType,
       paid
     );
-
     const programManager = new ProgramManager();
-    const program = await programManager.createProgram(intern_program);
-    res.json(program);
+    const program = await programManager.create(intern_program);
   } catch (err) {
     console.error(err);
     res.status(403);
@@ -73,29 +89,28 @@ export async function createProgram(req: Request, res: Response) {
 
 export async function favoriteProgram(req: Request, res: Response) {
   try {
-    const student = (req as CustomRequest).user as Student
-    if(! (student instanceof Student)) {
-      return res.status(403).send('You are not Student')
+    const student = (req as CustomRequest).user as Student;
+    if (!(student instanceof Student)) {
+      return res.status(403).send("You are not Student");
     }
 
-    const { id } = req.params
+    const { id } = req.params;
 
-    const userManager = new UserManager()
-    const programManager = new ProgramManager()
-    const program = await programManager.getProgramId(id)
+    const userManager = new UserManager();
+    const programManager = new ProgramManager();
+    const program = await programManager.getProgramId(id);
 
-    if(program === null) return res.status(403).send('Program not found')
+    if (program === null) return res.status(403).send("Program not found");
     else {
-      student.addFavoriteProgram(program)
-      program.addFavoriteStudent(student)
-      userManager.save(student)
-      programManager.save(program)
+      student.addFavoriteProgram(program);
+      program.addFavoriteStudent(student);
+      userManager.save(student);
+      programManager.save(program);
     }
-    res.sendStatus(200)
-  }
-  catch(err) {
-    console.log(err)
-    res.sendStatus(403)
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(403);
   }
 }
 
