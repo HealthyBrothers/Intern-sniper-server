@@ -43,12 +43,14 @@ class Company extends User {
     companyName: String,
     profilePicture: String | null,
     phoneNumber: String,
-    mediaLink: MediaLink[] | null
+    mediaLink: MediaLink[] | null,
+    location: Location | null
   ) {
     this.companyName = companyName;
     this.profilePicture = profilePicture;
     this.phoneNumber = phoneNumber;
     this.mediaLink = mediaLink;
+    this.location = location;
   }
 }
 
