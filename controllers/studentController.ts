@@ -22,3 +22,57 @@ export async function getProfile(req: Request, res: Response) {
     console.log(err);
   }
 }
+
+export async function updateProfile(req: Request, res: Response) {
+  try {
+    if (!((req as CustomRequest).user instanceof Student)) {
+      return res.status(403).send("You are not a student");
+    }
+
+    const {
+      id,
+      firstName,
+      lastName,
+      studyingYear,
+      interestedField,
+      university,
+      profilePicture,
+      mediaLink,
+    } = req.body;
+
+    const userManager = new UserManager();
+    const user = await userManager.findUserById(id);
+    if (user === null) {
+      return res.send("User not found");
+    }
+    const student = user as Student;
+    const targetStudent = new Student(
+      student.email,
+      student.firstName,
+      student.lastName,
+      student.studyingYear,
+      student.interestedField,
+      student.favoriteProgram,
+      student.university,
+      student.password,
+      student.salt,
+      student.mediaLink,
+      student.profilePicture
+    );
+
+    targetStudent.updateStudentProfile(
+      firstName,
+      lastName,
+      studyingYear,
+      interestedField,
+      university,
+      profilePicture,
+      mediaLink
+    );
+
+    userManager.updateStudentProfileById(id, targetStudent);
+    res.json(targetStudent);
+  } catch (err) {
+    console.log(err);
+  }
+}
