@@ -19,6 +19,8 @@ class ProgramManager {
     if (program instanceof Internship) {
       const newProgram = await ProgramModel.create(program);
       newProgram.save();
+      console.log("newProgram", newProgram);
+
       return newProgram;
     } else {
       throw new Error("Error, program doesn't a compatible type");

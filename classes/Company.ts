@@ -52,6 +52,16 @@ class Company extends User {
     this.mediaLink = mediaLink;
     this.location = location;
   }
+
+  public addProgram(newProgram: String) {
+    if (this.issuedProgram == null) {
+      this.issuedProgram = [];
+    }
+    console.log("oldProgram", this.issuedProgram);
+    console.log("newProgram", newProgram);
+
+    this.issuedProgram.push(newProgram);
+  }
 }
 
 export default Company;

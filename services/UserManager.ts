@@ -129,22 +129,4 @@ export class UserManager {
       }
     });
   }
-
-  // public async updateUserById(
-  //   id: String,
-  //   user: User | Company | Student
-  // ): Promise<mongoose.Types.ObjectId> {
-  //   let _id;
-  //   UserModel.findByIdAndUpdate(id, { ...user }, (err, docs) => {
-  //     if (err) {
-  //       console.log(err);
-  //     } else if (docs) {
-  //       console.log("Updated User : ", docs);
-  //       _id = docs._id as mongoose.Types.ObjectId;
-  //       console.log(_id);
-  //     }
-  //   });
-
-  //   return <mongoose.Types.ObjectId>_id;
-  // }
 }

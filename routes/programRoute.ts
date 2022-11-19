@@ -10,10 +10,4 @@ router.get("/:id", programController.getProgramByid);
 
 router.post("/create", authenticateToken, programController.createProgram);
 
-router.get(
-  "/createdummy",
-  authenticateToken,
-  programController.createDummyProgram
-);
-
 export default router;
