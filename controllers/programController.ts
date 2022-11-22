@@ -21,6 +21,8 @@ export async function getAllPrograms(req: Request, res: Response) {
 }
 
 export async function getProgramByid(req: Request, res: Response) {
+  console.log("req.params.id", req.params.id);
+
   try {
     const programManager = new ProgramManager();
     const program = await programManager.getProgramId(req.params.id);
@@ -58,6 +60,8 @@ export async function favoriteProgram(req: Request, res: Response) {
   }
 }
 
+export async function uploadSignleImage(req: Request, res: Response) {}
+
 export async function createProgram(req: Request, res: Response) {
   try {
     if (!((req as CustomRequest).user instanceof Company)) {
@@ -76,12 +80,14 @@ export async function createProgram(req: Request, res: Response) {
       paid,
     } = req.body;
 
+    console.log("req.body", req.body);
+
     const userManager = new UserManager();
     const companyData = (await userManager.findUserById(id)) as Company;
     console.log("companyData", companyData);
 
     const targetCompany = new Company(
-      companyData.userId,
+      id,
       companyData.email,
       companyData.companyName,
       companyData.issuedProgram,
@@ -93,12 +99,12 @@ export async function createProgram(req: Request, res: Response) {
       companyData.salt,
       companyData.validateStatus
     );
-    console.log("theOwner5", targetCompany);
+    console.log("theOwner5", companyData);
 
     const intern_program = new Internship(
-      programId,
+      "",
       programName,
-      targetCompany,
+      companyData,
       timeline,
       programPicture,
       programWebsite,
@@ -107,6 +113,8 @@ export async function createProgram(req: Request, res: Response) {
       programType,
       paid
     );
+    console.log("intern_program", intern_program);
+
     const programManager = new ProgramManager();
     const program = await programManager.create(intern_program);
 
