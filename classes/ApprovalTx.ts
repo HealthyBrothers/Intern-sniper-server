@@ -1,10 +1,10 @@
 class ApprovalTx {
-  program: String;
-  approval: String;
+  company: String;
+  approval: Boolean;
   timestamp: String;
 
-  constructor(program: String, approval: String, timestamp: String) {
-    this.program = program;
+  constructor(company: String, approval: Boolean, timestamp: String) {
+    this.company = company;
     this.approval = approval;
     this.timestamp = timestamp;
   }

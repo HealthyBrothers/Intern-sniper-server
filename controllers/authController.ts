@@ -13,7 +13,7 @@ export interface CustomRequest extends Request {
 }
 
 export interface tokenizeUser {
-  email: string;
+  email: String;
 }
 
 const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? "";

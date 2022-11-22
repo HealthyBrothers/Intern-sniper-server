@@ -1,5 +1,6 @@
 import Location from "./Location";
 import User from "./User";
+import ApprovalTx from "./ApprovalTx";
 import MediaLink from "./MediaLink";
 
 class Company extends User {
@@ -35,7 +36,7 @@ class Company extends User {
     this.validateStatus = status;
   }
 
-  public getName(): string {
+  public getName(): String {
     return this.companyName.toString();
   }
 
@@ -43,12 +44,22 @@ class Company extends User {
     companyName: String,
     profilePicture: String | null,
     phoneNumber: String,
-    mediaLink: MediaLink[] | null
+    mediaLink: MediaLink[] | null,
+    location: Location | null
   ) {
     this.companyName = companyName;
     this.profilePicture = profilePicture;
     this.phoneNumber = phoneNumber;
     this.mediaLink = mediaLink;
+    this.location = location;
+  }
+
+  public addProgram(newProgramId: String) {
+    if (this.issuedProgram == null) {
+      this.issuedProgram = [];
+    }
+
+    this.issuedProgram.push(newProgramId);
   }
 }
 
