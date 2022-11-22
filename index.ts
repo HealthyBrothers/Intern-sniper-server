@@ -7,6 +7,7 @@ import authRoute from "./routes/authRoute";
 import directorRoute from "./routes/directorRoute";
 import studentRoute from "./routes/studentRoute";
 import companyRoute from "./routes/companyRoute";
+import imageRoute from "./routes/imageRoute";
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use("/programs", programRoute);
 app.use("/director", directorRoute);
 app.use("/student", studentRoute);
 app.use("/company", companyRoute);
+app.use("/image", imageRoute);
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at https://localhost:${port}`);
