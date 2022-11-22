@@ -3,11 +3,14 @@ import authRoute from "./routes/authRoute";
 import programRoute from "./routes/programRoute";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from 'cors'
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT;
+
+app.use(cors());
 
 app.use(express.json());
 
