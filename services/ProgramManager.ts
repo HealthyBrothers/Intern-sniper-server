@@ -1,9 +1,9 @@
-import Program from "../classes/Program";
-import Internship from "../classes/Internship";
+import Program from "../types/Program";
+import Internship from "../types/Internship";
 import ProgramModel from "../models/programModel";
 import { IProgram } from "../models/programModel";
-import Company from "../classes/Company";
-import Timeline from "../classes/Timeline";
+import Company from "../types/Company";
+import Timeline from "../types/Timeline";
 import mongoose from "mongoose";
 
 class ProgramManager {

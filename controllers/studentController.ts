@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Student from "../classes/Student";
+import Student from "../types/Student";
 import dotenv from "dotenv";
 import { CustomRequest } from "./authController";
 import { UserManager } from "../services/UserManager";

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import MediaLink from "../classes/MediaLink";
+import MediaLink from "../types/MediaLink";
 
 export interface IMediaLinkDocument extends MediaLink {}
 

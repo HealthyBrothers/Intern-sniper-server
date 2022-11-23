@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Location from "../classes/Location";
+import Location from "../types/Location";
 
 export interface ILocationDocument extends mongoose.Document, Location {}
 

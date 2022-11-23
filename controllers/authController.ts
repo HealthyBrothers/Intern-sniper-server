@@ -2,9 +2,9 @@ import { Request, Response, NextFunction, response } from "express";
 import jwt, { JwtPayload, Secret } from "jsonwebtoken";
 import dotenv from "dotenv";
 import { UserManager } from "../services/UserManager";
-import User from "../classes/User";
-import Student from "../classes/Student";
-import Company from "../classes/Company";
+import User from "../types/User";
+import Student from "../types/Student";
+import Company from "../types/Company";
 
 dotenv.config();
 

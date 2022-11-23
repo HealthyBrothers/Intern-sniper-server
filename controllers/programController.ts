@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
-import Internship from "../classes/Internship";
-import Company from "../classes/Company";
+import Internship from "../types/Internship";
+import Company from "../types/Company";
 import { CustomRequest } from "./authController";
 import ProgramManager from "../services/ProgramManager";
-import Student from "../classes/Student";
+import Student from "../types/Student";
 import { UserManager } from "../services/UserManager";
 
 dotenv.config();

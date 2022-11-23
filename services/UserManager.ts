@@ -1,8 +1,8 @@
 import UserModel, { IUserDocument } from "../models/userModel";
-import Company from "../classes/Company";
-import Director from "../classes/Director";
-import Student from "../classes/Student";
-import User from "../classes/User";
+import Company from "../types/Company";
+import Director from "../types/Director";
+import Student from "../types/Student";
+import User from "../types/User";
 import mongoose from "mongoose";
 
 export class UserManager {

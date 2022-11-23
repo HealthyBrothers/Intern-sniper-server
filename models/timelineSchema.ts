@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Timeline from "../classes/Timeline";
+import Timeline from "../types/Timeline";
 
 interface ITimeLine extends Timeline, mongoose.Document {}
 

@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import Student from "../classes/Student";
-import Company from "../classes/Company";
-import Director from "../classes/Director";
-import User from "../classes/User";
+import Student from "../types/Student";
+import Company from "../types/Company";
+import Director from "../types/Director";
+import User from "../types/User";
 import { MediaLinkSchema } from "../models/mediaLinkModel";
 import { LocationSchema } from "../models/locationModel";
 import { ApprovalTxSchema } from "./approvalTxModel";

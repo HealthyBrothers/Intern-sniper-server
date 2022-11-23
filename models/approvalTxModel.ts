@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import ApprovalTx from "../classes/ApprovalTx";
+import ApprovalTx from "../types/ApprovalTx";
 interface IApprovalTx extends ApprovalTx, mongoose.Document {}
 
 export const ApprovalTxSchema: mongoose.Schema =

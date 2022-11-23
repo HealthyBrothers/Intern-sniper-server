@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import dotenv from "dotenv";
-import Director from "../classes/Director";
-import Company from "../classes/Company";
+import Director from "../types/Director";
+import Company from "../types/Company";
 import { CustomRequest } from "./authController";
 import { UserManager } from "../services/UserManager";
-import ApprovalTx from "../classes/ApprovalTx";
+import ApprovalTx from "../types/ApprovalTx";
 
 dotenv.config();
 

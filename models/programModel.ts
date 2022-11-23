@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Internship from "../classes/Internship";
+import Internship from "../types/Internship";
 import { TimelineSchema } from "./timelineSchema";
 import { CompanySchema } from "./companySchema";
 
