@@ -8,6 +8,8 @@ router.post('/login',
   authController.login
 )
 
+router.post('/register/pre', authController.preRegister)
+
 router.post('/register/student',
   authController.registerStudent
 )

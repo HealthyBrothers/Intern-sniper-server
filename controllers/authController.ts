@@ -41,6 +41,24 @@ export async function login(req: Request, res: Response) {
   }
 }
 
+export async function preRegister(req: Request, res: Response) {
+  const { email, password, confirmPassword } = req.body
+
+  const user = await userManager.getUserByEmail(email);
+  if (user !== null) {
+    return res.status(403).send({
+      message: "This email is already been used."
+    });
+  }
+  if (password !== confirmPassword) {
+    return res.status(403).send({
+      message: "Password and Confirm Password doesn't match."
+    });
+  }
+
+  res.sendStatus(200)
+}
+
 export async function registerStudent(req: Request, res: Response) {
   const {
     email,
@@ -52,6 +70,7 @@ export async function registerStudent(req: Request, res: Response) {
     interestedField,
     university,
     mediaLinks,
+    profilePicture
   } = req.body;
 
   const user = await userManager.getUserByEmail(email);
@@ -74,7 +93,7 @@ export async function registerStudent(req: Request, res: Response) {
     password,
     null,
     mediaLinks,
-    "profilePicture"
+    profilePicture
   );
 
   userManager
@@ -97,6 +116,7 @@ export async function registerCompany(req: Request, res: Response) {
     phoneNumber,
     location,
     mediaLinks,
+    profilePicture
   } = req.body;
 
   const user = await userManager.getUserByEmail(email);
@@ -112,7 +132,7 @@ export async function registerCompany(req: Request, res: Response) {
     email,
     companyName,
     [],
-    "profilePicture",
+    profilePicture,
     phoneNumber,
     mediaLinks,
     location,

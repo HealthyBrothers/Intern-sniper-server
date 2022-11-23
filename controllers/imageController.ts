@@ -14,10 +14,16 @@ conn.once("open", () => {
 
 export async function uploadImage(req: Request, res: Response) {
   try {
-    if (req.file === undefined) return res.send("you must select a file.");
+    if (req.file === undefined) return res.json({
+      success: false,
+      message: "you must select a file."
+    });
     const imgUrl = `${req.file.filename}`;
 
-    return res.send(imgUrl);
+    return res.json({
+      success: true,
+      path: imgUrl
+    });
   } catch (err) {
     console.error(err);
     res.status(403);
