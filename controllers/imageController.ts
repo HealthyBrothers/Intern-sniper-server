@@ -15,7 +15,7 @@ conn.once("open", () => {
 export async function uploadImage(req: Request, res: Response) {
   try {
     if (req.file === undefined) return res.send("you must select a file.");
-    const imgUrl = `${process.env.SERVER_URI}:${process.env.PORT}/image/${req.file.filename}`;
+    const imgUrl = `${req.file.filename}`;
 
     return res.send(imgUrl);
   } catch (err) {
