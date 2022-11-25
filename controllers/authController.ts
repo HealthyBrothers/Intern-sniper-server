@@ -159,9 +159,10 @@ export async function me(req: Request, res: Response) {
   const user = (req as CustomRequest).user;
 
   res.json({
-    name: user?.getName(),
-    email: user?.email,
-    role: user?.role,
-    profilePicture: user?.profilePicture,
+    id: user.userId,
+    name: user.getName(),
+    email: user.email,
+    role: user.role,
+    profilePicture: user.profilePicture,
   });
 }
