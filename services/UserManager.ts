@@ -40,11 +40,11 @@ export class UserManager {
           lastName,
           studyingYear,
           interestedField,
-          null,
+          favoriteProgram,
           university,
           password,
           salt,
-          null,
+          mediaLink,
           profilePicture
         );
         return student;
@@ -54,11 +54,11 @@ export class UserManager {
           id,
           email,
           companyName,
-          null,
+          issuedProgram,
           profilePicture,
           phoneNumber,
-          null,
-          null,
+          mediaLink,
+          location,
           password,
           salt,
           validateStatus
@@ -71,10 +71,10 @@ export class UserManager {
           email,
           firstName,
           lastName,
-          null,
+          transactions,
           password,
           salt,
-          null,
+          mediaLink,
           profilePicture
         );
         return director;
@@ -92,6 +92,11 @@ export class UserManager {
 
   public async getUserByEmail(email: String): Promise<User | null> {
     const user = await UserModel.findOne({ email });
+    return this.parseUser(user);
+  }
+
+  public async getUserById(id: string): Promise<User | null> {
+    const user = await UserModel.findById(id)
     return this.parseUser(user);
   }
 
