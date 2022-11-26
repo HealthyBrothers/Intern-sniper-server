@@ -141,5 +141,18 @@ export async function myFavorite(req: Request, res: Response) {
   const programs = await programManager.getManyProgram(student.favoriteProgram)
 
   res.json(programs)
+}
 
+export async function mostFavorite(req: Request, res: Response) {
+  const student = (req as CustomRequest).user as Student
+
+  const programManager = new ProgramManager()
+  const programs = await programManager.findAllPrograms()
+  programs.sort((a, b) => {
+    const A = a?.favoriteStudents?.length == null ? 0 : a.favoriteStudents.length;
+    const B = b?.favoriteStudents?.length == null ? 0 : b.favoriteStudents.length;
+    return B - A
+  })
+
+  res.json(programs)
 }

@@ -49,6 +49,14 @@ class ProgramManager {
     return programs;
   }
 
+  public async findAllPrograms() {
+    const programsDoc = await ProgramModel.find();
+    const programs = programsDoc.map(program => {
+      return this.parseProgram(program)
+    })
+    return programs
+  }
+
   public async getProgramId(id: string): Promise<Program | null> {
     const program = await ProgramModel.findById(id);
     return this.parseProgram(program);
