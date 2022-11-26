@@ -41,18 +41,24 @@ export async function favoriteProgram(req: Request, res: Response) {
     }
 
     const { id } = req.params;
+    const { favorite } = req.body;
 
     const userManager = new UserManager();
     const programManager = new ProgramManager();
     const program = await programManager.getProgramId(id);
 
     if (program === null) return res.status(403).send("Program not found");
-    else {
+
+    if (favorite) {
       student.addFavoriteProgram(program);
       program.addFavoriteStudent(student);
-      userManager.save(student);
-      programManager.save(program);
     }
+    else {
+      student.removeFavoriteProgram(program);
+      program.removeFavoriteStudent(student);
+    }
+    userManager.save(student);
+    programManager.save(program);
     res.sendStatus(200);
   } catch (err) {
     console.log(err);

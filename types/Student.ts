@@ -62,6 +62,17 @@ class Student extends User {
       this.favoriteProgram?.push(program.programId)
     }
   }
+
+  public removeFavoriteProgram(program: Program) {
+    if(program.programId !== null) { 
+      if(this.favoriteProgram?.includes(program.programId)) {
+        this.favoriteProgram = this.favoriteProgram?.filter(e => {
+          return e !== program.programId
+        })
+      } 
+      console.log(this.favoriteProgram, program.programId)
+    }
+  }
 }
 
 export default Student;

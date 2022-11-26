@@ -49,6 +49,17 @@ abstract class Program {
       this.favoriteStudents?.push(student.userId)
     }
   }
+
+  public removeFavoriteStudent(student: Student) {
+    if(student.userId !== null) {
+      if (this.favoriteStudents?.includes(student.userId)) {
+        this.favoriteStudents = this.favoriteStudents.filter(e => {
+          return e != student.userId?.toString()
+        })
+      }
+      console.log(this.favoriteStudents, student.userId)
+    }
+  }
 }
 
 export default Program;
