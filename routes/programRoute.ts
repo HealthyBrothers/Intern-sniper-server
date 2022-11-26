@@ -12,7 +12,7 @@ router.post("/favorite/:id", authenticateToken, programController.favoriteProgra
 
 router.get("/favorited", authenticateToken, programController.myFavorite)
 
-router.get("/mostFavorite", programController.mostFavorite)
+router.get("/popular", programController.mostFavorite)
 
 router.get("/:id", programController.getProgramByid);
 
