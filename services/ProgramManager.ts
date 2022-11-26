@@ -2,9 +2,11 @@ import Program from "../types/Program";
 import Internship from "../types/Internship";
 import ProgramModel from "../models/programModel";
 import { IProgram } from "../models/programModel";
+import { IUserDocument } from "../models/userModel";
 import Company from "../types/Company";
 import Timeline from "../types/Timeline";
 import mongoose from "mongoose";
+import UserModel from "../models/userModel";
 
 class ProgramManager {
   private parseProgram(documentProgram: IProgram | null): Internship | null {
@@ -114,6 +116,11 @@ class ProgramManager {
         return null;
       }
     }
+  }
+
+  public async issuedPrograms(company: Company) {
+    const user: IUserDocument | null = await UserModel.findById(company.userId).populate('issuedProgram')
+    return user?.issuedProgram
   }
 
   public async save(program: Program) {

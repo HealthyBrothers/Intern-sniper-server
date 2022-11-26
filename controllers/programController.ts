@@ -156,3 +156,12 @@ export async function mostFavorite(req: Request, res: Response) {
 
   res.json(programs)
 }
+
+export async function issuedProgram(req: Request, res: Response) {
+  const company = (req as CustomRequest).user as Company
+
+  const programManager = new ProgramManager()
+  const programs = await programManager.issuedPrograms(company)
+  
+  res.json(programs)
+}

@@ -14,6 +14,8 @@ router.get("/favorited", authenticateToken, programController.myFavorite)
 
 router.get("/popular", programController.mostFavorite)
 
+router.get("/issued", authenticateToken, programController.issuedProgram)
+
 router.get("/:id", programController.getProgramByid);
 
 export default router;
