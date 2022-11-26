@@ -20,7 +20,7 @@ const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? "";
 const userManager = new UserManager();
 
 function generateAccessToken(user: tokenizeUser) {
-  return jwt.sign(user, ACCESS_TOKEN, { expiresIn: "1800s" });
+  return jwt.sign(user, ACCESS_TOKEN, { expiresIn: "2h" });
 }
 
 export async function login(req: Request, res: Response) {
