@@ -162,11 +162,5 @@ export function logout(req: Request, res: Response) {
 export async function me(req: Request, res: Response) {
   const user = (req as CustomRequest).user;
 
-  res.json({
-    id: user.userId,
-    name: user.getName(),
-    email: user.email,
-    role: user.role,
-    profilePicture: user.profilePicture,
-  });
+  res.json(user);
 }
