@@ -28,9 +28,13 @@ export async function login(req: Request, res: Response) {
     const { email, password } = req.body;
 
     const user = await userManager.getUserByEmail(email);
-    if (user === null) return res.status(403).send("invalid email address");
+    if (user === null) return res.status(403).send({
+      message: "Invalid email address"
+    });
     if (!user.vaildatePassword(password))
-      return res.status(403).send("incorrect password");
+      return res.status(403).send({
+        message: "Incorrect password"
+      });
 
     const tokenizeUser: tokenizeUser = { email };
     const token = generateAccessToken(tokenizeUser);
