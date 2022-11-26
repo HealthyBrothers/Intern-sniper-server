@@ -54,6 +54,16 @@ class ProgramManager {
     return this.parseProgram(program);
   }
 
+  public async getManyProgram(ids: String[] | null) {
+    if(ids?.length === 0) return
+    
+    const programsDoc = await ProgramModel.find({ _id: { $in: ids }})
+    const programs = programsDoc.map(program => {
+      return this.parseProgram(program)
+    })
+    return programs
+  }
+
   public async createProgram(program: Internship): Promise<Program> {
     if (program instanceof Internship) {
       const newProgram = await ProgramModel.create(program);

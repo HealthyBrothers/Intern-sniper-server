@@ -133,3 +133,13 @@ export async function createProgram(req: Request, res: Response) {
     res.status(403);
   }
 }
+
+export async function myFavorite(req: Request, res: Response) {
+  const student = (req as CustomRequest).user as Student
+
+  const programManager = new ProgramManager()
+  const programs = await programManager.getManyProgram(student.favoriteProgram)
+
+  res.json(programs)
+
+}
