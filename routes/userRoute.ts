@@ -4,10 +4,10 @@ import { authenticateToken } from "../middleware/auth";
 
 const router = express.Router();
 
-router.get("/profile", authenticateToken, userController.getProfile);
+router.get("/:id", userController.getProfile);
 
 router.put(
-  "/update",
+  "/update/:id",
   authenticateToken,
   userController.updateProfile
 );

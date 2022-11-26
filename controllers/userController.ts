@@ -9,7 +9,13 @@ dotenv.config()
 
 export async function getProfile(req: Request, res: Response) {
   try {
-    const user = (req as CustomRequest).user
+    const userManager = new UserManager();
+
+    const { id } = req.params
+    const user = await userManager.getUserById(id);
+    if (user === null) return res.status(403).send({
+      message: 'Can\'t find user by userId: ' + id
+    })
     res.json(user);
   } catch (err) {
     console.log(err);
@@ -19,8 +25,11 @@ export async function getProfile(req: Request, res: Response) {
 
 export function updateProfile(req: Request, res: Response) {
   try {
+    const { id } = req.params
     const userManager = new UserManager()
     const user = (req as CustomRequest).user
+
+    if(id !== user.userId) return res.sendStatus(401)
 
     if (user instanceof Student) {
       const {
