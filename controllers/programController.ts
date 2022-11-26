@@ -135,10 +135,11 @@ export async function createProgram(req: Request, res: Response) {
 }
 
 export async function myFavorite(req: Request, res: Response) {
-  const student = (req as CustomRequest).user as Student
   if (!((req as CustomRequest).user instanceof Student)) {
     return res.status(403).send("You are not a student");
   }
+
+  const student = (req as CustomRequest).user as Student
 
   const programManager = new ProgramManager()
   const programs = await programManager.getManyProgram(student.favoriteProgram)
@@ -147,11 +148,6 @@ export async function myFavorite(req: Request, res: Response) {
 }
 
 export async function mostFavorite(req: Request, res: Response) {
-  const student = (req as CustomRequest).user as Student
-  if (!((req as CustomRequest).user instanceof Student)) {
-    return res.status(403).send("You are not a student");
-  }
-
   const programManager = new ProgramManager()
   const programs = await programManager.findAllPrograms()
   programs.sort((a, b) => {
@@ -164,10 +160,11 @@ export async function mostFavorite(req: Request, res: Response) {
 }
 
 export async function issuedProgram(req: Request, res: Response) {
-  const company = (req as CustomRequest).user as Company
   if (!((req as CustomRequest).user instanceof Company)) {
     return res.status(403).send("You are not a company");
   }
+
+  const company = (req as CustomRequest).user as Company
 
   const programManager = new ProgramManager()
   const programs = await programManager.issuedPrograms(company)
