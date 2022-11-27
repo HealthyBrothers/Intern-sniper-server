@@ -6,6 +6,33 @@ import { UserManager } from "../services/UserManager";
 
 dotenv.config();
 
+export async function getAllCompany(req: Request, res: Response) {
+  try {
+    const userManager = new UserManager()
+    const users = await userManager.getUsers()
+
+    let companies = users.filter(user => {
+      return user?.role == 'Company'
+    })
+    companies.sort((a, b) => {
+      const A = a as Company;
+      const B = b as Company;
+      if(A.validateStatus && ! B.validateStatus) {
+        return 1
+      }
+      else {
+        return -1
+      }
+    })
+
+    res.json(companies)
+  }
+  catch (err) {
+    console.log(err)
+    res.sendStatus(500)
+  }
+}
+
 export async function getProfile(req: Request, res: Response) {
   try {
     const { email } = (req as CustomRequest).user;

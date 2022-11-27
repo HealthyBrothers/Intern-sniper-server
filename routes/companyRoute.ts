@@ -4,6 +4,8 @@ import { authenticateToken } from "../middleware/auth";
 
 const router = express.Router();
 
+router.get("/", companyController.getAllCompany);
+
 router.get("/profile", authenticateToken, companyController.getProfile);
 
 router.post(

@@ -90,6 +90,14 @@ export class UserManager {
     return UserModel.create(user);
   }
 
+  public async getUsers() {
+    const usersDoc = await UserModel.find();
+    const users = usersDoc.map(user => {
+      return this.parseUser(user)
+    })
+    return users
+  }
+
   public async getUserByEmail(email: String): Promise<User | null> {
     const user = await UserModel.findOne({ email });
     return this.parseUser(user);
