@@ -18,7 +18,7 @@ export async function validateCompany(req: Request, res: Response) {
     const directorData = await userManager.findUserById(directorId);
 
     const director = new Director(
-      directorData.userId,
+      directorId,
       directorData.email,
       directorData.firstName,
       directorData.lastName,
@@ -32,7 +32,7 @@ export async function validateCompany(req: Request, res: Response) {
     const company = await userManager.findUserById(companyId);
 
     const targetCompany = new Company(
-      company.userId,
+      companyId,
       company.email,
       company.companyName,
       company.issuedProgram,
