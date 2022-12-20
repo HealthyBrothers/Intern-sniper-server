@@ -1,19 +1,19 @@
-import express, { Request, Response } from "express";
-import mongoose from "mongoose";
-import { upload } from "../middleware/upload";
-import * as imageController from "../controllers/imageController";
+import express from 'express';
+import mongoose from 'mongoose';
+import { upload } from '../middleware/upload';
+import * as imageController from '../controllers/imageController';
 
 const router = express.Router();
 let gfs: any;
 const conn = mongoose.connection;
-conn.once("open", () => {
+conn.once('open', () => {
   gfs = new mongoose.mongo.GridFSBucket(conn.db, {
-    bucketName: "photos",
+    bucketName: 'photos',
   });
 });
 
-router.post("/upload", upload.single("file"), imageController.uploadImage);
+router.post('/upload', upload.single('file'), imageController.uploadImage);
 
-router.get("/:filename", imageController.getImage);
+router.get('/:filename', imageController.getImage);
 
 export default router;

@@ -1,15 +1,14 @@
-import Program from "../types/Program";
-import Internship from "../types/Internship";
-import ProgramModel from "../models/programModel";
-import { IProgram } from "../models/programModel";
-import { IUserDocument } from "../models/userModel";
-import Company from "../types/Company";
-import Timeline from "../types/Timeline";
-import mongoose from "mongoose";
-import UserModel from "../models/userModel";
+import Program from '../types/Program';
+import Internship from '../types/Internship';
+import ProgramModel, { IProgram } from '../models/programModel';
+import UserModel, { IUserDocument } from '../models/userModel';
+import Company from '../types/Company';
+
+const userModel = UserModel.getInstance();
+const programModel = ProgramModel.getInstance();
 
 class ProgramManager {
-  private parseProgram(documentProgram: IProgram | null): Internship | null {
+  public parseProgram(documentProgram: IProgram | null): Internship | null {
     if (documentProgram === null) return null;
 
     const {
@@ -26,7 +25,7 @@ class ProgramManager {
     } = documentProgram;
 
     switch (programType) {
-      case "INTERN": {
+      case 'INTERN': {
         const internship = new Internship(
           _id.toString(),
           programName,
@@ -46,52 +45,46 @@ class ProgramManager {
       }
     }
   }
-  public async getAllPrograms(): Promise<Program[]> {
-    const programs = await ProgramModel.find();
+
+  public async getAllPrograms(): Promise<any[]> {
+    const programsDoc = await programModel.model.find();
+    const programs = programsDoc.map((program) => {
+      return this.parseProgram(program);
+    });
     return programs;
   }
 
-  public async findAllPrograms() {
-    const programsDoc = await ProgramModel.find();
-    const programs = programsDoc.map(program => {
-      return this.parseProgram(program)
-    })
-    return programs
+  public async findAllPrograms(): Promise<any[]> {
+    const programsDoc = await programModel.model.find();
+    const programs = programsDoc.map((program) => {
+      return this.parseProgram(program);
+    });
+    return programs;
   }
 
   public async getProgramId(id: string): Promise<Program | null> {
-    const program = await ProgramModel.findById(id);
+    const program = await programModel.model.findById(id);
     return this.parseProgram(program);
   }
 
-  public async getManyProgram(ids: String[] | null) {
-    if(ids?.length === 0) return
-    
-    const programsDoc = await ProgramModel.find({ _id: { $in: ids }})
-    const programs = programsDoc.map(program => {
-      return this.parseProgram(program)
-    })
-    return programs
-  }
+  public async getManyProgram(ids: String[] | null): Promise<any[] | null> {
+    if (ids?.length === 0) return null;
 
-  public async createProgram(program: Internship): Promise<Program> {
-    if (program instanceof Internship) {
-      const newProgram = await ProgramModel.create(program);
-      newProgram.save();
-      return newProgram;
-    } else {
-      throw new Error("Error, program doesn't a compatible type");
-    }
+    const programsDoc = await programModel.model.find({ _id: { $in: ids } });
+    const programs = programsDoc.map((program) => {
+      return this.parseProgram(program);
+    });
+    return programs;
   }
 
   public async create(program: Internship): Promise<IProgram> {
-    return ProgramModel.create(program);
+    return await programModel.model.create(program);
   }
 
   private async parseProgramDocument(
     program: Program
   ): Promise<IProgram | null> {
-    const programDocument: IProgram | null = await ProgramModel.findById(
+    const programDocument: IProgram | null = await programModel.model.findById(
       program.programId
     );
 
@@ -100,7 +93,7 @@ class ProgramManager {
     const { programType } = programDocument;
 
     switch (programType) {
-      case "INTERN": {
+      case 'INTERN': {
         const internship = program as Internship;
         programDocument.programName = internship.programName;
         programDocument.timeline = internship.timeline;
@@ -118,12 +111,14 @@ class ProgramManager {
     }
   }
 
-  public async issuedPrograms(company: Company) {
-    const user: IUserDocument | null = await UserModel.findById(company.userId).populate('issuedProgram')
-    return user?.issuedProgram
+  public async issuedPrograms(company: Company): Promise<any> {
+    const user: IUserDocument | null = await userModel.model
+      .findById(company.userId)
+      .populate('issuedProgram');
+    return user?.issuedProgram;
   }
 
-  public async save(program: Program) {
+  public async save(program: Program): Promise<void> {
     const documentProgram = await this.parseProgramDocument(program);
     documentProgram?.save();
   }

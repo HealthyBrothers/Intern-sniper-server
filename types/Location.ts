@@ -1,6 +1,6 @@
 interface Location {
-  country: String;
-  province: String;
+  country: String
+  province: String
 }
 
 export default Location;

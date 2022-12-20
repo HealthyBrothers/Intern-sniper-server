@@ -1,31 +1,19 @@
-import express, { Express, Request, Response, NextFunction } from 'express';
+import express from 'express';
 import * as authController from '../controllers/authController';
-import { authenticateToken } from "../middleware/auth";
+import { authenticateToken } from '../middleware/auth';
 
-const router = express.Router()
+const router = express.Router();
 
-router.post('/login',
-  authController.login
-)
+router.post('/login', authController.login);
 
-router.post('/register/pre', authController.preRegister)
+router.post('/register/pre', authController.preRegister);
 
-router.post('/register/student',
-  authController.registerStudent
-)
+router.post('/register/student', authController.registerStudent);
 
-router.post('/register/company',
-  authController.registerCompany
-)
+router.post('/register/company', authController.registerCompany);
 
-router.post('/logout',
-  authenticateToken,
-  authController.logout
-)
+router.post('/logout', authenticateToken, authController.logout);
 
-router.post('/me',
-  authenticateToken,
-  authController.me
-)
+router.post('/me', authenticateToken, authController.me);
 
-export default router
+export default router;

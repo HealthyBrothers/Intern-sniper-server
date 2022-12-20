@@ -1,7 +1,6 @@
-import Company from "./Company";
-import Timeline from "./Timeline";
-import { programType } from "./enum";
-import Student from "./Student";
+import Company from './Company';
+import Timeline from './Timeline';
+import Student from './Student';
 
 abstract class Program {
   programId: String | null;
@@ -36,28 +35,28 @@ abstract class Program {
     this.programType = programType;
   }
 
-  public announceProgram() {
+  public announceProgram(): void {
     console.log(
       `This program is ${this.programName}, it is ${this.programType}`
     );
   }
 
-  public addFavoriteStudent(student: Student) {
-    if(student.userId !== null) {
-      if (this.favoriteStudents?.includes(student.userId)) return
+  public addFavoriteStudent(student: Student): void {
+    if (student.userId !== null) {
+      if (this.favoriteStudents?.includes(student.userId)) return;
 
-      this.favoriteStudents?.push(student.userId)
+      this.favoriteStudents?.push(student.userId);
     }
   }
 
-  public removeFavoriteStudent(student: Student) {
-    if(student.userId !== null) {
+  public removeFavoriteStudent(student: Student): void {
+    if (student.userId !== null) {
       if (this.favoriteStudents?.includes(student.userId)) {
-        this.favoriteStudents = this.favoriteStudents.filter(e => {
-          return e != student.userId?.toString()
-        })
+        this.favoriteStudents = this.favoriteStudents.filter((e) => {
+          return e != student.userId?.toString();
+        });
       }
-      console.log(this.favoriteStudents, student.userId)
+      console.log(this.favoriteStudents, student.userId);
     }
   }
 }

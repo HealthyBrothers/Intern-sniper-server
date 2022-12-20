@@ -1,7 +1,6 @@
-import Location from "./Location";
-import User from "./User";
-import ApprovalTx from "./ApprovalTx";
-import MediaLink from "./MediaLink";
+import Location from './Location';
+import User from './User';
+import MediaLink from './MediaLink';
 
 class Company extends User {
   companyName: String;
@@ -23,7 +22,7 @@ class Company extends User {
     salt: String | null,
     validateStatus: boolean
   ) {
-    super(userId, "Company", email, password, salt, mediaLink, profilePicture);
+    super(userId, 'Company', email, password, salt, mediaLink, profilePicture);
     this.companyName = companyName;
     this.issuedProgram = issuedProgram;
     this.profilePicture = profilePicture;
@@ -32,7 +31,7 @@ class Company extends User {
     this.validateStatus = validateStatus;
   }
 
-  public setValidateStatus(status: boolean) {
+  public setValidateStatus(status: boolean): void {
     this.validateStatus = status;
   }
 
@@ -46,7 +45,7 @@ class Company extends User {
     phoneNumber: String,
     mediaLink: MediaLink[] | null,
     location: Location | null
-  ) {
+  ): void {
     this.companyName = companyName;
     this.profilePicture = profilePicture;
     this.phoneNumber = phoneNumber;
@@ -54,7 +53,7 @@ class Company extends User {
     this.location = location;
   }
 
-  public addProgram(newProgramId: String) {
+  public addProgram(newProgramId: String): void {
     if (this.issuedProgram == null) {
       this.issuedProgram = [];
     }

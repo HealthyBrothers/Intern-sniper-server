@@ -1,7 +1,4 @@
-import mongoose from "mongoose";
-import Timeline from "../types/Timeline";
-
-interface ITimeLine extends Timeline, mongoose.Document {}
+import mongoose from 'mongoose';
 
 export const TimelineSchema: mongoose.Schema = new mongoose.Schema({
   eventName: { type: String, required: true },

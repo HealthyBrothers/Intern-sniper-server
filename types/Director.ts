@@ -1,6 +1,6 @@
-import User from "./User";
-import MediaLink from "./MediaLink";
-import ApprovalTx from "./ApprovalTx";
+import User from './User';
+import MediaLink from './MediaLink';
+import ApprovalTx from './ApprovalTx';
 
 class Director extends User {
   firstName: String;
@@ -18,17 +18,17 @@ class Director extends User {
     mediaLink: MediaLink[] | null,
     profilePicture: String | null
   ) {
-    super(userId, "Director", email, password, salt, mediaLink, profilePicture);
+    super(userId, 'Director', email, password, salt, mediaLink, profilePicture);
     this.firstName = firstname;
     this.lastName = lastname;
     this.transactions = transactions;
   }
 
   public getName(): String {
-    return this.firstName.toString() + " " + this.lastName.toString();
+    return this.firstName.toString() + ' ' + this.lastName.toString();
   }
 
-  public addTransaction(transaction: ApprovalTx) {
+  public addTransaction(transaction: ApprovalTx): void {
     if (this.transactions == null) {
       this.transactions = [];
     }

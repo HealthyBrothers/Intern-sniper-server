@@ -1,8 +1,8 @@
 interface Timeline {
-  eventName: String;
-  startDate: String;
-  endDate: String;
-  status: String;
+  eventName: String
+  startDate: String
+  endDate: String
+  status: String
 }
 
 export default Timeline;

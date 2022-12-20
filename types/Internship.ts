@@ -1,7 +1,6 @@
-import Program from "./Program";
-import Company from "./Company";
-import Timeline from "./Timeline";
-import { programType } from "./enum";
+import Program from './Program';
+import Company from './Company';
+import Timeline from './Timeline';
 
 class Internship extends Program {
   paid: boolean;
@@ -32,13 +31,11 @@ class Internship extends Program {
     this.paid = paid;
   }
 
-  public override announceProgram() {
+  public override announceProgram(): void {
     console.log(
       `This program is ${this.programName}, it is ${
         this.programType
-      } and it is ${
-        this.paid ? "paid" : "unpaid"
-      } intern`
+      } and it is ${this.paid ? 'paid' : 'unpaid'} intern`
     );
   }
 }

@@ -1,19 +1,19 @@
-import { Request, Response } from "express";
-import Student from "../types/Student";
-import dotenv from "dotenv";
-import { CustomRequest } from "./authController";
-import { UserManager } from "../services/UserManager";
+import { Request, Response } from 'express';
+import Student from '../types/Student';
+import dotenv from 'dotenv';
+import { CustomRequest } from './authController';
+import { UserManager } from '../services/UserManager';
 
 dotenv.config();
 
-export async function getProfile(req: Request, res: Response) {
+export async function getProfile(req: Request, res: Response): Promise<any> {
   try {
     const { email } = (req as CustomRequest).user;
 
     console.log();
 
     if (!((req as CustomRequest).user instanceof Student)) {
-      return res.status(403).send("You are not a student");
+      return res.status(403).send('You are not a student');
     }
     const userManager = new UserManager();
     const student = await userManager.getUserByEmail(email);
@@ -23,10 +23,10 @@ export async function getProfile(req: Request, res: Response) {
   }
 }
 
-export async function updateProfile(req: Request, res: Response) {
+export async function updateProfile(req: Request, res: Response): Promise<any> {
   try {
     if (!((req as CustomRequest).user instanceof Student)) {
-      return res.status(403).send("You are not a student");
+      return res.status(403).send('You are not a student');
     }
 
     const {
@@ -43,7 +43,7 @@ export async function updateProfile(req: Request, res: Response) {
     const userManager = new UserManager();
     const user = await userManager.findUserById(id);
     if (user === null) {
-      return res.send("User not found");
+      return res.send('User not found');
     }
     const student = user as Student;
     const targetStudent = new Student(

@@ -1,10 +1,10 @@
-import { Request, Response, NextFunction, response } from "express";
-import jwt, { JwtPayload, Secret } from "jsonwebtoken";
-import dotenv from "dotenv";
-import { UserManager } from "../services/UserManager";
-import User from "../types/User";
-import Student from "../types/Student";
-import Company from "../types/Company";
+import { Request, Response } from 'express';
+import jwt, { Secret } from 'jsonwebtoken';
+import dotenv from 'dotenv';
+import { UserManager } from '../services/UserManager';
+import User from '../types/User';
+import Student from '../types/Student';
+import Company from '../types/Company';
 
 dotenv.config();
 
@@ -16,25 +16,28 @@ export interface tokenizeUser {
   email: String;
 }
 
-const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? "";
+const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? '';
 const userManager = new UserManager();
 
-function generateAccessToken(user: tokenizeUser) {
-  return jwt.sign(user, ACCESS_TOKEN, { expiresIn: "2h" });
+function generateAccessToken(user: tokenizeUser): string {
+  return jwt.sign(user, ACCESS_TOKEN, { expiresIn: '2h' });
 }
 
-export async function login(req: Request, res: Response) {
+export async function login(req: Request, res: Response): Promise<any> {
   try {
     const { email, password } = req.body;
 
     const user = await userManager.getUserByEmail(email);
-    if (user === null) return res.status(403).send({
-      message: "Invalid email address"
-    });
-    if (!user.vaildatePassword(password))
+    if (user === null) {
       return res.status(403).send({
-        message: "Incorrect password"
+        message: 'Invalid email address',
       });
+    }
+    if (!user.vaildatePassword(password)) {
+      return res.status(403).send({
+        message: 'Incorrect password',
+      });
+    }
 
     const tokenizeUser: tokenizeUser = { email };
     const token = generateAccessToken(tokenizeUser);
@@ -45,25 +48,28 @@ export async function login(req: Request, res: Response) {
   }
 }
 
-export async function preRegister(req: Request, res: Response) {
-  const { email, password, confirmPassword } = req.body
+export async function preRegister(req: Request, res: Response): Promise<any> {
+  const { email, password, confirmPassword } = req.body;
 
   const user = await userManager.getUserByEmail(email);
   if (user !== null) {
     return res.status(403).send({
-      message: "This email is already been used."
+      message: 'This email is already been used.',
     });
   }
   if (password !== confirmPassword) {
     return res.status(403).send({
-      message: "Password and Confirm Password doesn't match."
+      message: 'Password and Confirm Password doesnt match.',
     });
   }
 
-  res.sendStatus(200)
+  res.sendStatus(200);
 }
 
-export async function registerStudent(req: Request, res: Response) {
+export async function registerStudent(
+  req: Request,
+  res: Response
+): Promise<any> {
   const {
     email,
     password,
@@ -74,15 +80,15 @@ export async function registerStudent(req: Request, res: Response) {
     interestedField,
     university,
     mediaLinks,
-    profilePicture
+    profilePicture,
   } = req.body;
 
   const user = await userManager.getUserByEmail(email);
   if (user !== null) {
-    return res.status(403).send("This email is already been used.");
+    return res.status(403).send('This email is already been used.');
   }
   if (password !== confirmPassword) {
-    return res.status(403).send("Password and Confirm Password doesn't match.");
+    return res.status(403).send('Password and Confirm Password doesnt match.');
   }
 
   const newStudent = new Student(
@@ -111,7 +117,10 @@ export async function registerStudent(req: Request, res: Response) {
     });
 }
 
-export async function registerCompany(req: Request, res: Response) {
+export async function registerCompany(
+  req: Request,
+  res: Response
+): Promise<any> {
   const {
     email,
     password,
@@ -120,15 +129,15 @@ export async function registerCompany(req: Request, res: Response) {
     phoneNumber,
     location,
     mediaLinks,
-    profilePicture
+    profilePicture,
   } = req.body;
 
   const user = await userManager.getUserByEmail(email);
   if (user !== null) {
-    return res.status(403).send("This email is already been used.");
+    return res.status(403).send('This email is already been used.');
   }
   if (password !== confirmPassword) {
-    return res.status(403).send("Password and Confirm Password doesn't match.");
+    return res.status(403).send('Password and Confirm Password doesnt match.');
   }
 
   const newCompany = new Company(
@@ -155,11 +164,11 @@ export async function registerCompany(req: Request, res: Response) {
       res.sendStatus(403);
     });
 }
-export function logout(req: Request, res: Response) {
+export function logout(req: Request, res: Response): any {
   //
 }
 
-export async function me(req: Request, res: Response) {
+export async function me(req: Request, res: Response): Promise<any> {
   const user = (req as CustomRequest).user;
 
   res.json(user);

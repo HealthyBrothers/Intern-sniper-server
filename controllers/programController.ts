@@ -1,15 +1,18 @@
-import { Request, Response } from "express";
-import dotenv from "dotenv";
-import Internship from "../types/Internship";
-import Company from "../types/Company";
-import { CustomRequest } from "./authController";
-import ProgramManager from "../services/ProgramManager";
-import Student from "../types/Student";
-import { UserManager } from "../services/UserManager";
+import { Request, Response } from 'express';
+import dotenv from 'dotenv';
+import Internship from '../types/Internship';
+import Company from '../types/Company';
+import { CustomRequest } from './authController';
+import ProgramManager from '../services/ProgramManager';
+import Student from '../types/Student';
+import { UserManager } from '../services/UserManager';
 
 dotenv.config();
 
-export async function getAllPrograms(req: Request, res: Response) {
+export async function getAllPrograms(
+  req: Request,
+  res: Response
+): Promise<any> {
   try {
     const programManager = new ProgramManager();
     const programs = await programManager.getAllPrograms();
@@ -20,8 +23,11 @@ export async function getAllPrograms(req: Request, res: Response) {
   }
 }
 
-export async function getProgramByid(req: Request, res: Response) {
-  console.log("req.params.id", req.params.id);
+export async function getProgramByid(
+  req: Request,
+  res: Response
+): Promise<any> {
+  console.log('req.params.id', req.params.id);
 
   try {
     const programManager = new ProgramManager();
@@ -33,11 +39,14 @@ export async function getProgramByid(req: Request, res: Response) {
   }
 }
 
-export async function favoriteProgram(req: Request, res: Response) {
+export async function favoriteProgram(
+  req: Request,
+  res: Response
+): Promise<any> {
   try {
     const student = (req as CustomRequest).user as Student;
     if (!(student instanceof Student)) {
-      return res.status(403).send("You are not Student");
+      return res.status(403).send('You are not Student');
     }
 
     const { id } = req.params;
@@ -47,13 +56,12 @@ export async function favoriteProgram(req: Request, res: Response) {
     const programManager = new ProgramManager();
     const program = await programManager.getProgramId(id);
 
-    if (program === null) return res.status(403).send("Program not found");
+    if (program === null) return res.status(403).send('Program not found');
 
     if (favorite) {
       student.addFavoriteProgram(program);
       program.addFavoriteStudent(student);
-    }
-    else {
+    } else {
       student.removeFavoriteProgram(program);
       program.removeFavoriteStudent(student);
     }
@@ -66,12 +74,10 @@ export async function favoriteProgram(req: Request, res: Response) {
   }
 }
 
-export async function uploadSignleImage(req: Request, res: Response) {}
-
-export async function createProgram(req: Request, res: Response) {
+export async function createProgram(req: Request, res: Response): Promise<any> {
   try {
     if (!((req as CustomRequest).user instanceof Company)) {
-      return res.status(403).send("You are not a company");
+      return res.status(403).send('You are not a company');
     }
     const {
       id,
@@ -86,11 +92,8 @@ export async function createProgram(req: Request, res: Response) {
       paid,
     } = req.body;
 
-    console.log("req.body", req.body);
-
     const userManager = new UserManager();
     const companyData = (await userManager.findUserById(id)) as Company;
-    console.log("companyData", companyData);
 
     const targetCompany = new Company(
       id,
@@ -105,10 +108,9 @@ export async function createProgram(req: Request, res: Response) {
       companyData.salt,
       companyData.validateStatus
     );
-    console.log("theOwner5", companyData);
 
-    const intern_program = new Internship(
-      "",
+    const internProgram = new Internship(
+      '',
       programName,
       companyData,
       timeline,
@@ -119,10 +121,9 @@ export async function createProgram(req: Request, res: Response) {
       programType,
       paid
     );
-    console.log("intern_program", intern_program);
 
     const programManager = new ProgramManager();
-    const program = await programManager.create(intern_program);
+    const program = await programManager.create(internProgram);
 
     targetCompany.addProgram(program._id.toString());
     userManager.updateUserById(id, targetCompany);
@@ -134,40 +135,42 @@ export async function createProgram(req: Request, res: Response) {
   }
 }
 
-export async function myFavorite(req: Request, res: Response) {
+export async function myFavorite(req: Request, res: Response): Promise<any> {
   if (!((req as CustomRequest).user instanceof Student)) {
-    return res.status(403).send("You are not a student");
+    return res.status(403).send('You are not a student');
   }
 
-  const student = (req as CustomRequest).user as Student
+  const student = (req as CustomRequest).user as Student;
 
-  const programManager = new ProgramManager()
-  const programs = await programManager.getManyProgram(student.favoriteProgram)
+  const programManager = new ProgramManager();
+  const programs = await programManager.getManyProgram(student.favoriteProgram);
 
-  res.json(programs)
+  res.json(programs);
 }
 
-export async function mostFavorite(req: Request, res: Response) {
-  const programManager = new ProgramManager()
-  const programs = await programManager.findAllPrograms()
+export async function mostFavorite(req: Request, res: Response): Promise<any> {
+  const programManager = new ProgramManager();
+  const programs = await programManager.findAllPrograms();
   programs.sort((a, b) => {
-    const A = a?.favoriteStudents?.length == null ? 0 : a.favoriteStudents.length;
-    const B = b?.favoriteStudents?.length == null ? 0 : b.favoriteStudents.length;
-    return B - A
-  })
+    const A =
+      a?.favoriteStudents?.length == null ? 0 : a.favoriteStudents.length;
+    const B =
+      b?.favoriteStudents?.length == null ? 0 : b.favoriteStudents.length;
+    return B - A;
+  });
 
-  res.json(programs)
+  res.json(programs);
 }
 
-export async function issuedProgram(req: Request, res: Response) {
+export async function issuedProgram(req: Request, res: Response): Promise<any> {
   if (!((req as CustomRequest).user instanceof Company)) {
-    return res.status(403).send("You are not a company");
+    return res.status(403).send('You are not a company');
   }
 
-  const company = (req as CustomRequest).user as Company
+  const company = (req as CustomRequest).user as Company;
 
-  const programManager = new ProgramManager()
-  const programs = await programManager.issuedPrograms(company)
-  
-  res.json(programs)
+  const programManager = new ProgramManager();
+  const programs = await programManager.issuedPrograms(company);
+
+  res.json(programs);
 }

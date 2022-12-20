@@ -1,9 +1,10 @@
-import UserModel, { IUserDocument } from "../models/userModel";
-import Company from "../types/Company";
-import Director from "../types/Director";
-import Student from "../types/Student";
-import User from "../types/User";
-import mongoose from "mongoose";
+import UserModel, { IUserDocument } from '../models/userModel';
+import Company from '../types/Company';
+import Director from '../types/Director';
+import Student from '../types/Student';
+import User from '../types/User';
+
+const userModel = UserModel.getInstance();
 
 export class UserManager {
   private parseUser(documentUser: IUserDocument | null): User | null {
@@ -32,7 +33,7 @@ export class UserManager {
     } = documentUser;
 
     switch (role) {
-      case "Student": {
+      case 'Student': {
         const student = new Student(
           id,
           email,
@@ -49,7 +50,7 @@ export class UserManager {
         );
         return student;
       }
-      case "Company": {
+      case 'Company': {
         const company = new Company(
           id,
           email,
@@ -65,7 +66,7 @@ export class UserManager {
         );
         return company;
       }
-      case "Director": {
+      case 'Director': {
         const director = new Director(
           id,
           email,
@@ -85,36 +86,39 @@ export class UserManager {
     }
   }
 
-  public create(user: User): Promise<IUserDocument> {
+  public async create(user: User): Promise<IUserDocument> {
     console.log(user);
-    return UserModel.create(user);
+    return await userModel.model.create(user);
   }
 
-  public async getUsers() {
-    const usersDoc = await UserModel.find();
-    const users = usersDoc.map(user => {
-      return this.parseUser(user)
-    })
-    return users
+  public async getUsers(): Promise<any> {
+    const usersDoc = await userModel.model.find();
+    const users = usersDoc.map((user) => {
+      return this.parseUser(user);
+    });
+    return users;
   }
 
   public async getUserByEmail(email: String): Promise<User | null> {
-    const user = await UserModel.findOne({ email });
+    const user = await userModel.model.findOne({ email });
     return this.parseUser(user);
   }
 
   public async getUserById(id: string): Promise<User | null> {
-    const user = await UserModel.findById(id)
+    const user = await userModel.model.findById(id);
     return this.parseUser(user);
   }
 
   public async findUserById(id: String): Promise<IUserDocument> {
-    const user = await UserModel.findById(id);
-    return <IUserDocument>user;
+    const user = await userModel.model.findById(id);
+    return user as IUserDocument;
   }
 
-  public async updateStudentProfileById(id: String, student: Student) {
-    UserModel.findByIdAndUpdate(
+  public async updateStudentProfileById(
+    id: String,
+    student: Student
+  ): Promise<any> {
+    userModel.model.findByIdAndUpdate(
       id,
       {
         firstName: student.firstName,
@@ -127,10 +131,10 @@ export class UserManager {
         mediaLink: student.mediaLink,
       },
       (err, docs) => {
-        if (err) {
+        if (err != null) {
           console.log(err);
         } else {
-          console.log("Updated User : ", docs);
+          console.log('Updated User : ', docs);
         }
       }
     );
@@ -140,16 +144,17 @@ export class UserManager {
     id: String,
     user: User | Company | Student | Director
   ): void {
-    UserModel.findByIdAndUpdate(id, { ...user }, (err, docs) => {
-      if (err) {
+    userModel.model.findByIdAndUpdate(id, { ...user }, (err, docs) => {
+      if (err != null) {
         console.log(err);
-      } else if (docs) {
-        console.log("Updated User : ", docs);
+      } else if (docs != null) {
+        console.log('Updated User : ', docs);
       }
     });
   }
+
   private async parseUserDocument(user: User): Promise<IUserDocument | null> {
-    let documentUser: IUserDocument | null = await UserModel.findById(
+    const documentUser: IUserDocument | null = await userModel.model.findById(
       user.userId
     );
 
@@ -158,7 +163,7 @@ export class UserManager {
     const { role } = documentUser;
 
     switch (role) {
-      case "Student": {
+      case 'Student': {
         const student = user as Student;
         documentUser.firstName = student.firstName;
         documentUser.lastName = student.lastName;
@@ -170,7 +175,7 @@ export class UserManager {
         documentUser.profilePicture = student.profilePicture;
         return documentUser;
       }
-      case "Company": {
+      case 'Company': {
         const company = user as Company;
         documentUser.companyName = company.companyName;
         documentUser.issuedProgram = company.issuedProgram;
@@ -181,7 +186,7 @@ export class UserManager {
         documentUser.profilePicture = company.profilePicture;
         return documentUser;
       }
-      case "Director": {
+      case 'Director': {
         const director = user as Director;
         documentUser.firstName = director.firstName;
         documentUser.lastName = director.lastName;
@@ -196,7 +201,7 @@ export class UserManager {
     }
   }
 
-  public async save(user: User) {
+  public async save(user: User): Promise<void> {
     const documentUser = await this.parseUserDocument(user);
     documentUser?.save();
   }

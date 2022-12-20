@@ -1,6 +1,6 @@
-import User from "./User";
-import MediaLink from "./MediaLink";
-import Program from "./Program";
+import User from './User';
+import MediaLink from './MediaLink';
+import Program from './Program';
 
 class Student extends User {
   firstName: String;
@@ -24,7 +24,7 @@ class Student extends User {
     mediaLink: MediaLink[] | null,
     profilePicture: String | null
   ) {
-    super(userId, "Student", email, password, salt, mediaLink, profilePicture);
+    super(userId, 'Student', email, password, salt, mediaLink, profilePicture);
     this.firstName = firstName;
     this.lastName = lastName;
     this.studyingYear = studyingYear;
@@ -34,7 +34,7 @@ class Student extends User {
   }
 
   public getName(): String {
-    return this.firstName.toString() + " " + this.lastName.toString();
+    return this.firstName.toString() + ' ' + this.lastName.toString();
   }
 
   public updateStudentProfile(
@@ -45,7 +45,7 @@ class Student extends User {
     university: String,
     profilePicture: String | null,
     mediaLink: MediaLink[] | null
-  ) {
+  ): void {
     this.firstName = firstName;
     this.lastName = lastName;
     this.studyingYear = studyingYear;
@@ -55,22 +55,22 @@ class Student extends User {
     this.mediaLink = mediaLink;
   }
 
-  public addFavoriteProgram(program: Program) {
-    if(program.programId !== null) { 
-      if(this.favoriteProgram?.includes(program.programId)) return
+  public addFavoriteProgram(program: Program): void {
+    if (program.programId !== null) {
+      if (this.favoriteProgram?.includes(program.programId)) return;
 
-      this.favoriteProgram?.push(program.programId)
+      this.favoriteProgram?.push(program.programId);
     }
   }
 
-  public removeFavoriteProgram(program: Program) {
-    if(program.programId !== null) { 
-      if(this.favoriteProgram?.includes(program.programId)) {
-        this.favoriteProgram = this.favoriteProgram?.filter(e => {
-          return e !== program.programId
-        })
-      } 
-      console.log(this.favoriteProgram, program.programId)
+  public removeFavoriteProgram(program: Program): void {
+    if (program.programId !== null) {
+      if (this.favoriteProgram?.includes(program.programId)) {
+        this.favoriteProgram = this.favoriteProgram?.filter((e) => {
+          return e !== program.programId;
+        });
+      }
+      console.log(this.favoriteProgram, program.programId);
     }
   }
 }

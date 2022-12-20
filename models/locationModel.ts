@@ -1,16 +1,16 @@
-import mongoose from "mongoose";
-import Location from "../types/Location";
+import mongoose from 'mongoose';
+import Location from '../types/Location';
 
 export interface ILocationDocument extends mongoose.Document, Location {}
 
 export const LocationSchema: mongoose.Schema =
   new mongoose.Schema<ILocationDocument>({
     country: { type: String, required: true },
-    province: { type: String, required: true },
+    province: { type: String, required: true }
   });
 
 const LocationModel = mongoose.model<ILocationDocument>(
-  "Location",
+  'Location',
   LocationSchema
 );
 

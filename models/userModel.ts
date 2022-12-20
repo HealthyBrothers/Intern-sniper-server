@@ -1,11 +1,11 @@
-import mongoose from "mongoose";
-import Student from "../types/Student";
-import Company from "../types/Company";
-import Director from "../types/Director";
-import User from "../types/User";
-import { MediaLinkSchema } from "../models/mediaLinkModel";
-import { LocationSchema } from "../models/locationModel";
-import { ApprovalTxSchema } from "./approvalTxModel";
+import mongoose from 'mongoose';
+import Student from '../types/Student';
+import Company from '../types/Company';
+import Director from '../types/Director';
+import User from '../types/User';
+import { MediaLinkSchema } from '../models/mediaLinkModel';
+import { LocationSchema } from '../models/locationModel';
+import { ApprovalTxSchema } from './approvalTxModel';
 
 export interface IUserDocument
   extends User,
@@ -34,7 +34,7 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
   transactions: { type: [ApprovalTxSchema], required: false, default: null },
   companyName: { type: String, required: false },
   issuedProgram: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Program" }],
+    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Program' }],
     default: undefined,
   },
   phoneNumber: { type: String, required: false },
@@ -42,9 +42,20 @@ const UserSchema: mongoose.Schema<IUserDocument> = new mongoose.Schema({
   validateStatus: { type: Boolean, required: false },
 });
 
-const UserModel: mongoose.Model<IUserDocument> = mongoose.model<IUserDocument>(
-  "User",
-  UserSchema
-);
+export class UserModel {
+  private static instance: UserModel;
+  public model: mongoose.Model<IUserDocument>;
+
+  constructor() {
+    this.model = mongoose.model<IUserDocument>('User', UserSchema);
+  }
+
+  static getInstance(): UserModel {
+    if (!UserModel.instance) {
+      UserModel.instance = new UserModel();
+    }
+    return UserModel.instance;
+  }
+}
 
 export default UserModel;

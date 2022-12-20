@@ -1,17 +1,26 @@
-import { Request, Response } from "express";
-import dotenv from "dotenv";
-import Director from "../types/Director";
-import Company from "../types/Company";
-import { CustomRequest } from "./authController";
-import { UserManager } from "../services/UserManager";
-import ApprovalTx from "../types/ApprovalTx";
+import { Request, Response } from 'express';
+import dotenv from 'dotenv';
+import Director from '../types/Director';
+import Company from '../types/Company';
+import { CustomRequest } from './authController';
+import { UserManager } from '../services/UserManager';
+import { TransactionManager } from '../services/TransactionManager';
 
 dotenv.config();
 
-export async function validateCompany(req: Request, res: Response) {
+type validateCompanyResponse =
+  | string
+  | String
+  | { director: Director }
+  | Response;
+
+export async function validateCompany(
+  req: Request,
+  res: Response
+): Promise<validateCompanyResponse | undefined> {
   try {
-    if (!((req as CustomRequest).user.role === "Director")) {
-      return res.status(403).send("You are not a director");
+    if (!((req as CustomRequest).user.role === 'Director')) {
+      return res.status(403).send('You are not a director');
     }
     const { directorId, companyId, validateStatus, timestamp } = req.body;
     const userManager = new UserManager();
@@ -48,9 +57,12 @@ export async function validateCompany(req: Request, res: Response) {
     targetCompany.setValidateStatus(validateStatus);
     userManager.updateUserById(companyId, targetCompany);
 
-    const newTransaction = new ApprovalTx(companyId, validateStatus, timestamp);
-
-    console.log("newTransaction", newTransaction);
+    const transactionManager = new TransactionManager();
+    const newTransaction = await transactionManager.create(
+      companyId,
+      validateStatus,
+      timestamp
+    );
 
     director.addTransaction(newTransaction);
     userManager.updateUserById(directorId, director);

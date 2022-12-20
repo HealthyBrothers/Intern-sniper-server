@@ -1,4 +1,9 @@
-import { mediaLinkType } from "./enum";
+enum mediaLinkType {
+  LINKEDIN,
+  GITHUB,
+  FACEBOOK,
+  PERSONALWEB,
+}
 
 interface MediaLink {
   url: String;

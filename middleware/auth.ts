@@ -1,22 +1,22 @@
-import { Request, Response, NextFunction } from "express";
-import dotenv from "dotenv";
-import jwt, { JwtPayload, Secret } from "jsonwebtoken";
-import { UserManager } from "../services/UserManager";
-import { CustomRequest, tokenizeUser } from "../controllers/authController";
+import { Request, Response, NextFunction } from 'express';
+import dotenv from 'dotenv';
+import jwt, { Secret } from 'jsonwebtoken';
+import { UserManager } from '../services/UserManager';
+import { CustomRequest, tokenizeUser } from '../controllers/authController';
 
 dotenv.config();
 
-const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? "";
+const ACCESS_TOKEN: Secret = process.env.ACCESS_TOKEN ?? '';
 const userManager = new UserManager();
 
 export async function authenticateToken(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Promise<any> {
   try {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (token == null) return res.sendStatus(401);
 
@@ -27,9 +27,8 @@ export async function authenticateToken(
     (req as CustomRequest).user = user;
 
     next();
-  }
-  catch(err) {
-    console.error(err)
-    res.sendStatus(403)
+  } catch (err) {
+    console.error(err);
+    res.sendStatus(403);
   }
 }
