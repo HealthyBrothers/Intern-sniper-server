@@ -9,36 +9,36 @@ This project is a platform that allows students, directors, companies, and visit
 The following features are available to users:
 
 Students
-• Register and create a user account
-• Login and logout of their account
-• View a list of available programs
-• View their own profile and update their personal information
-• Add or remove programs from their favorite list
+- Register and create a user account
+- Login and logout of their account
+- View a list of available programs
+- View their own profile and update their personal information
+- Add or remove programs from their favorite list
 
 Directors
-• Login and logout of their account
-• View a list of available programs
-• Validate companies to allow them to list their programs on the platform
-• View a list of validation transactions
+- Login and logout of their account
+- View a list of available programs
+- Validate companies to allow them to list their programs on the platform
+- View a list of validation transactions
 
 Companies
-• Register and create a user account
-• Login and logout of their account
-• View a list of available programs
-• View their own profile and update their company information
-• Create a new program listing on the platform
-• View a list of their own programs
+- Register and create a user account
+- Login and logout of their account
+- View a list of available programs
+- View their own profile and update their company information
+- Create a new program listing on the platform
+- View a list of their own programs
 
 Visitors
-• Register and create a user account
-• View a list of available programs
+- Register and create a user account
+- View a list of available programs
 
 # Technologies
 The following core technologies were used to develop the backend for this platform:
-• Node.js: Node.js was used as the JavaScript runtime for building the backend API.
-• Express.js: Express.js was used as the web framework for building the API.
-• TypeScript: TypeScript was used as a typed superset of JavaScript to build the backend codebase.
-• MongoDB: MongoDB was used as the database management system for storing user and program data.
+- Node.js: Node.js was used as the JavaScript runtime for building the backend API.
+- Express.js: Express.js was used as the web framework for building the API.
+- TypeScript: TypeScript was used as a typed superset of JavaScript to build the backend codebase.
+- MongoDB: MongoDB was used as the database management system for storing user and program data.
 
 # Project setup
 ## serve server localhost
