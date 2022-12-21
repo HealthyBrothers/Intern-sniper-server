@@ -34,7 +34,7 @@ Visitors
 - View a list of available programs
 
 # Technologies
-The following core technologies were used to develop the backend for this platform:
+The following core technologies were used to develop this website:
 - Node.js: Node.js was used as the JavaScript runtime for building the backend API.
 - Express.js: Express.js was used as the web framework for building the API.
 - TypeScript: TypeScript was used as a typed superset of JavaScript to build the backend codebase.
