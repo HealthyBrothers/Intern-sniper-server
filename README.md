@@ -1,14 +1,17 @@
 # Intern-sniper-server
+
 This repository contains the backend code for the platform. The corresponding frontend repository can be found at the following link: https://github.com/HealthyBrothers/Intern-sniper-client
 
 The frontend repository contains all of the necessary code to build and run the user interface for the platform. It is built using [insert frontend framework] and communicates with the backend API provided by this repository.
 
 # Project Overview
+
 This project is a platform that allows students, directors, companies, and visitors to browse and interact with various educational programs.
 
 The following features are available to users:
 
 Students
+
 - Register and create a user account
 - Login and logout of their account
 - View a list of available programs
@@ -16,12 +19,14 @@ Students
 - Add or remove programs from their favorite list
 
 Directors
+
 - Login and logout of their account
 - View a list of available programs
 - Validate companies to allow them to list their programs on the platform
 - View a list of validation transactions
 
 Companies
+
 - Register and create a user account
 - Login and logout of their account
 - View a list of available programs
@@ -30,26 +35,34 @@ Companies
 - View a list of their own programs
 
 Visitors
+
 - Register and create a user account
 - View a list of available programs
 
 # Technologies
+
 The following core technologies were used to develop the backend for this platform:
+
 - Node.js: Node.js was used as the JavaScript runtime for building the backend API.
 - Express.js: Express.js was used as the web framework for building the API.
 - TypeScript: TypeScript was used as a typed superset of JavaScript to build the backend codebase.
 - MongoDB: MongoDB was used as the database management system for storing user and program data.
 
 # Project setup
+
 ## serve server localhost
+
 ### installing dependencies
+
 ```sh
 cp .env.example .env
 yarn install
 ```
 
 ### start server
+
 ```sh
- yarn run dev
+ yarn dev
 ```
-then access to http://localhost:port
+
+then access to http://localhost:8080
