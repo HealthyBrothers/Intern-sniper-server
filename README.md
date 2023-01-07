@@ -1,6 +1,6 @@
 # Intern-sniper-server
 
-This repository contains the backend code for the platform. The corresponding frontend repository can be found at the following link: https://github.com/HealthyBrothers/Intern-sniper-client
+This repository contains the backend code for the platform. The corresponding frontend repository can be found at the following link: https://github.com/Grapeka/Intern-sniper-client
 
 The frontend repository contains all of the necessary code to build and run the user interface for the platform. It is built using [insert frontend framework] and communicates with the backend API provided by this repository.
 
