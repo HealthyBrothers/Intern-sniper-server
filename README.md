@@ -56,6 +56,7 @@ The following core technologies were used to develop the backend for this platfo
 
 ```sh
 cp .env.example .env
+yarn build
 yarn install
 ```
 
