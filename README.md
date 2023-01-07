@@ -68,3 +68,5 @@ yarn build
 # Start the server
 yarn dev
 ```
+
+You can now access the application at http://localhost:8080
