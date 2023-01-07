@@ -48,22 +48,23 @@ The following core technologies were used to develop the backend for this platfo
 - TypeScript: TypeScript was used as a typed superset of JavaScript to build the backend codebase.
 - MongoDB: MongoDB was used as the database management system for storing user and program data.
 
-# Project setup
+## Getting Started
 
-## serve server localhost
-
-### installing dependencies
+To get started with the Intern-sniper-server, follow the steps below:
 
 ```sh
-cp .env.example .env
-yarn build
+# Clone the repository to your local machine
+git clone https://github.com/Grapeka/Intern-sniper-server.git
+
+# Install the dependencies
 yarn install
+
+# Copy the example environment file and update the values as necessary
+cp .env.example .env
+
+# Build the project
+yarn build
+
+# Start the server
+yarn dev
 ```
-
-### start server
-
-```sh
- yarn dev
-```
-
-then access to http://localhost:8080
