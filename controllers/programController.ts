@@ -93,7 +93,7 @@ export async function createProgram(req: Request, res: Response): Promise<any> {
     } = req.body;
 
     const userManager = new UserManager();
-    const companyData = (await userManager.findUserById(id)) as Company;
+    const companyData = (await userManager.getUserById(id)) as Company;
 
     const targetCompany = new Company(
       id,

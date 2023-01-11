@@ -104,7 +104,7 @@ export class UserManager {
     return this.parseUser(user);
   }
 
-  public async findUserById(id: String): Promise<IUserDocument> {
+  public async getUserById(id: String): Promise<IUserDocument> {
     const user = await userModel.model.findById(id);
     return user as IUserDocument;
   }
