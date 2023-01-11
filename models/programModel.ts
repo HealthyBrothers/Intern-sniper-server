@@ -11,7 +11,7 @@ export const ProgramSchema: mongoose.Schema = new mongoose.Schema({
   timeline: { type: [TimelineSchema], required: true },
   programPicture: { type: [String], require: true },
   programWebsite: String,
-  favoriteStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
+  favoriteStudents: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   relatedField: [String],
   programType: String,
   paid: Boolean,
