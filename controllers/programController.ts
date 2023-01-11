@@ -27,8 +27,6 @@ export async function getProgramByid(
   req: Request,
   res: Response
 ): Promise<any> {
-  console.log('req.params.id', req.params.id);
-
   try {
     const programManager = new ProgramManager();
     const program = await programManager.getProgramId(req.params.id);
