@@ -150,8 +150,8 @@ export async function myFavorite(req: Request, res: Response): Promise<any> {
 
 export async function mostFavorite(req: Request, res: Response): Promise<any> {
   const programManager = new ProgramManager();
-  const programs = await programManager.findAllPrograms();
-  programs.sort((a, b) => {
+  const programs = await programManager.getAllPrograms();
+  programs.sort((a: Internship, b: Internship) => {
     const A =
       a?.favoriteStudents?.length == null ? 0 : a.favoriteStudents.length;
     const B =
