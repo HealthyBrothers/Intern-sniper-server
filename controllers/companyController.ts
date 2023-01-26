@@ -65,7 +65,7 @@ export async function updateProfile(req: Request, res: Response): Promise<any> {
     } = req.body;
 
     const userManager = new UserManager();
-    const user = await userManager.findUserById(id);
+    const user = await userManager.getUserById(id);
     if (user === null) {
       return res.send('User not found');
     }

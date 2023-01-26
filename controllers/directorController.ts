@@ -24,7 +24,7 @@ export async function validateCompany(
     }
     const { directorId, companyId, validateStatus, timestamp } = req.body;
     const userManager = new UserManager();
-    const directorData = await userManager.findUserById(directorId);
+    const directorData = await userManager.getUserById(directorId);
 
     const director = new Director(
       directorId,
@@ -38,7 +38,7 @@ export async function validateCompany(
       directorData.profilePicture
     );
 
-    const company = await userManager.findUserById(companyId);
+    const company = await userManager.getUserById(companyId);
 
     const targetCompany = new Company(
       companyId,

@@ -46,20 +46,12 @@ class ProgramManager {
     }
   }
 
-  public async getAllPrograms(): Promise<any[]> {
+  public async getAllPrograms(): Promise<Internship[]> {
     const programsDoc = await programModel.model.find();
     const programs = programsDoc.map((program) => {
       return this.parseProgram(program);
     });
-    return programs;
-  }
-
-  public async findAllPrograms(): Promise<any[]> {
-    const programsDoc = await programModel.model.find();
-    const programs = programsDoc.map((program) => {
-      return this.parseProgram(program);
-    });
-    return programs;
+    return programs as Internship[];
   }
 
   public async getProgramId(id: string): Promise<Program | null> {

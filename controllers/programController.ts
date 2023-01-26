@@ -27,8 +27,6 @@ export async function getProgramByid(
   req: Request,
   res: Response
 ): Promise<any> {
-  console.log('req.params.id', req.params.id);
-
   try {
     const programManager = new ProgramManager();
     const program = await programManager.getProgramId(req.params.id);
@@ -93,7 +91,7 @@ export async function createProgram(req: Request, res: Response): Promise<any> {
     } = req.body;
 
     const userManager = new UserManager();
-    const companyData = (await userManager.findUserById(id)) as Company;
+    const companyData = (await userManager.getUserById(id)) as Company;
 
     const targetCompany = new Company(
       id,
@@ -150,8 +148,8 @@ export async function myFavorite(req: Request, res: Response): Promise<any> {
 
 export async function mostFavorite(req: Request, res: Response): Promise<any> {
   const programManager = new ProgramManager();
-  const programs = await programManager.findAllPrograms();
-  programs.sort((a, b) => {
+  const programs = await programManager.getAllPrograms();
+  programs.sort((a: Internship, b: Internship) => {
     const A =
       a?.favoriteStudents?.length == null ? 0 : a.favoriteStudents.length;
     const B =
